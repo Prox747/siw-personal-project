@@ -30,6 +30,8 @@ Modello di dominio:
    - Annuncio: rappresenta un annuncio pubblicato da un'azienda e contiene informazioni come titolo, descrizione, settore, requisiti richiesti e altro.
    - Azienda: rappresenta un'azienda che pubblica annunci di lavoro e contiene informazioni come nome, descrizione e altre informazioni di contatto.
    - Utente: rappresenta una persona registrata nel sistema, che può essere sia un'azienda che una persona in cerca di lavoro. Contiene informazioni come nome, email e password.
+   - Partecipazione: rappresenta la partecipazione di una persona in cerca di lavoro a un annuncio di lavoro. Contiene informazioni come
+     la data di partecipazione e lo stato della partecipazione (accettato, in attesa, rifiutato).
 
 2. Relazioni:
    - Un'azienda può pubblicare molti annunci di lavoro.

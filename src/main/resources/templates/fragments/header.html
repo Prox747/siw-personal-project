@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+  <th:block th:fragment="header">
+    <header>
+        <div class="headerElements" th:if="${currentUser}">
+            <a class="home" id="home1" href="/">Home</a>
+            <span class="endElements">
+                <a class="username-container" href="/registered/profile">
+                    <img class="profile-pic-header" th:src="@{'/upload/images/userProfilePics/' + ${currentUser.imageFileName}}" alt="profile pic">
+                    <span id="username" th:text="${currentUser.username}"></span>
+                </a>
+                <span class="whitespace">-</span>
+                <a id="logout" href="/logout">Logout</a>
+            </span>
+        </div>
+        <div class="headerElements" th:unless="${currentUser}">
+            <a class="home" id="home2" href="/">Home</a>
+            <a class="endElements" id="login" href="/login">Login</a>
+        </div>
+    </header>
+    </th:block>
+</body>
+</html>

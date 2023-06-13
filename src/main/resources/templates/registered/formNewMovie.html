@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>FormNewMovie</title>
+    <link rel="stylesheet" href="/css/form_style.css" type="text/css"/>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <h1>Inserisci un nuovo film</h1>
+    <!-- nella form dobbiamo mettere enctype="multipart/form-data" per dire al browser che la form deve poter accettare caricamneto di file
+         Mentre sotto dobbiamo mettere nell'input il tipo "file" e per accettare solo immagini mettiamo accept="image/*"-->
+    <form class="container" th:action="@{/templates/registered/addedMovie}" method="POST" th:object="${movie}" enctype="multipart/form-data">
+        <div id="error-container" th:if="${#fields.hasGlobalErrors()}">
+            <p class="errorMessage" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+
+        <div class="errorMessage" th:if="${erroreUpload}" th:text="${erroreUpload}">errore</div>
+
+        <label for="titolo">Titolo:</label>
+        <input id="titolo" required type="text" th:field="${movie.title}" maxlength="255"/>
+        <span class="errorMessage" th:if="${#fields.hasErrors('title')}" th:errors="${movie.title}"></span>
+
+
+        <label for="anno">Anno:</label>
+        <input id="anno" required type="text" th:field="${movie.year}" maxlength="255"/>
+        <span class="errorMessage" th:if="${#fields.hasErrors('year')}" th:errors="${movie.year}"></span>
+
+        <label for="regista">Scegli un regista:</label>
+        <span class="noDirectors" th:unless="${directors}"> non ci sono artisti da poter scegliere</span>
+        <select id="regista" required th:field="${movie.director}" th:if="${directors}">
+            <option th:each="director : ${directors}" th:value="${director.id}" th:text="${director.name} + ' ' + ${director.surname}"></option>
+        </select>
+
+        <label for="image">Immagine:</label>
+        <input id="image" required type="file" name="image" accept="image/*"/>
+
+        <button type="submit" class="bottone">Inserisci</button>
+    </form>
+</body>
+</html>

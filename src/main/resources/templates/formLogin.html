@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html">
+    <title>LoginPage</title>
+    <link rel="stylesheet" href="/css/form_style.css" type="text/css"/>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <h1>Login</h1>
+    <form class="container" th:action="@{/login}" method="POST">
+        <label for="usernameInput">Username: </label>
+        <input id="usernameInput" required type="text" name="username"/><br>
+
+        <label for="password">Password: </label>
+        <input id="password" required type="password" name="password"/><br>
+
+        <div class="errorMessage" th:if="${param.error != null}">Username o password errati</div>
+
+        <button type="submit" class="bottone">Login</button><br>
+
+        <div id="register-row">
+            <a class="register" th:href="@{/registerUser}">Registrati</a>
+            <a class="register" th:href="@{/registerCompany}">Sono un'azienda</a>
+        </div>
+    </form>
+</body>
+</html>

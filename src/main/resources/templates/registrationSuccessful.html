@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Registration successful</title>
+    <link rel="stylesheet" href="/css/form_style.css" type="text/css"/>
+</head>
+
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <h1>Congratulazioni ti sei registrato!</h1>
+  <div class="registration-info">
+    <span>Nome: </span>
+    <span th:text="${user.name}"></span>
+  </div>
+  <div class="registration-info">
+    <span>Cognome: </span>
+    <span th:text="${user.surname}"></span>
+  </div>
+  <div class="registration-info">
+    <span>Email: </span>
+    <span th:text="${user.email}"></span>
+  </div>
+</body>
+</html>
