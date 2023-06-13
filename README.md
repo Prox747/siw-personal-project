@@ -38,8 +38,6 @@ Modello di dominio:
 
 Strato di persistenza:
 
-Lo strato di persistenza gestisce l'interazione con il database per memorizzare e recuperare i dati. Può essere implementato utilizzando un database relazionale o un database NoSQL, a seconda delle esigenze del progetto. Alcune tabelle o collezioni suggerite includono:
-
 1. Tabella "Annunci":
    - Colonne: ID annuncio, ID azienda, titolo, descrizione, settore, requisiti richiesti, data di pubblicazione, ecc.
 
