@@ -51,3 +51,5 @@ Strato di persistenza:
 
 4. Tabella "Partecipazioni":
    - Colonne: ID partecipazione, ID annuncio, ID utente, data di partecipazione, stato (accettato, in attesa, rifiutato), ecc.
+  
+<img src="./domainModelImage/modello_dominio.jpeg" alt="Project Domain Model" width="500">
