@@ -8,12 +8,14 @@
     <div th:replace="fragments/header :: header"></div>
 
     <h1>Registra la tua azienda</h1>
-    <form class="container" th:action="@{/registerCompany}" method="POST">
+    <form class="container" th:action="@{/registerCompany}" method="POST" enctype="multipart/form-data">
         <label for="usernameForRegistration">Username</label>
         <input id="usernameForRegistration" type="text" placeholder="username" required th:field="${credentials.username}" /><br>
         <span class="errorMessage" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
               th:style="'color:red'">
         </span><br>
+
+        <div class="errorMessage" th:if="${erroreUpload}" th:text="${erroreUpload}">errore</div>
 
         <label for="password">Password</label>
         <input id="password" type="password" placeholder="password" required th:field="${credentials.password}"/><br>
@@ -52,6 +54,9 @@
         <label for="phoneNumber">Telefono azienda</label>
         <input id="phoneNumber" type="text" placeholder="telefono" required th:field="${company.phoneNumber}" /><br>
         <span class="errorMessage" th:if="${#fields.hasErrors('company.phoneNumber')}" th:errors="${company.phoneNumber}" th:style="'color:red'"></span><br>
+
+        <label for="logo">Logo</label>
+        <input id="logo" type="file" placeholder="logo" name="logo" required accept="image/*"/><br>
 
         <button class="bottone" type="submit">Registra</button>
 

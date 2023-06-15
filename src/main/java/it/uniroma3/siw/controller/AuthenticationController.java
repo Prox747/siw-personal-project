@@ -3,7 +3,9 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.model.Company;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.CompanyService;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.JobAdService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.util.FileUploadUtil;
 import it.uniroma3.siw.util.ModelPreparationUtil;
@@ -14,8 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class AuthenticationController {
@@ -24,6 +29,10 @@ public class AuthenticationController {
     private CredentialsService credentialsService;
     @Autowired
     UserService userService;
+    @Autowired
+    JobAdService jobAdService;
+    @Autowired
+    CompanyService companyService;
     @Autowired
     ModelPreparationUtil modelPreparationUtil;
 
@@ -50,7 +59,10 @@ public class AuthenticationController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model);
+        return modelPreparationUtil.prepareModelForIndexTemplate(
+                "index.html",
+                model,
+                jobAdService.findLast15JobAds());
     }
 
     @GetMapping("/success")
@@ -79,7 +91,8 @@ public class AuthenticationController {
     //CREDENTIALS SALVA USER IN CASCADE E USER SALVA COMPANY IN CASCADE  |
     //-----------------------------------------------------------------  V
     @PostMapping("/registerCompany")
-    public String registerCompany(@Valid @ModelAttribute("company") Company company,
+    public String registerCompany(@RequestParam("logo") MultipartFile multipartFile,
+                               @Valid @ModelAttribute("company") Company company,
                                BindingResult companyBindingResult,
                                @Valid @ModelAttribute("user") User user,
                                BindingResult userBindingResult, @Valid
@@ -90,7 +103,14 @@ public class AuthenticationController {
         // se user e credential hanno entrambi contenuti validi, memorizza User e le Credentials nel DB
         if( ! (userBindingResult.hasErrors()
                 || credentialsBindingResult.hasErrors()
-                || companyBindingResult.hasErrors())) {
+                || companyBindingResult.hasErrors()
+                || multipartFile.isEmpty())) {
+            try{
+                companyService.addImageToCompany(company, multipartFile);
+            } catch (IOException e) {
+                model.addAttribute("erroreUpload", "Errore nel caricamento dell'immagine");
+                return "formRegisterCompany";
+            }
             //-----------------------------------------------------------------
             //CREDENTIALS SALVA USER IN CASCADE E USER SALVA COMPANY IN CASCADE
             //-----------------------------------------------------------------

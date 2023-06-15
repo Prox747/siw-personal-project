@@ -60,7 +60,7 @@ public class CredentialsService {
     }
 
     @Transactional
-    public boolean userIsRegistered() {
+    public boolean userIsApplicant() {
         Optional<Credentials> currentCredentials = this.getCurrentCredentials();
         if(currentCredentials.isPresent()) {
             if(currentCredentials.get().getRuolo().equals(Credentials.DEFAULT_ROLE)){

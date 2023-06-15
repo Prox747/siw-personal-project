@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,9 +15,14 @@ public class Company {
     private Long id;
 
     // I cannot save it "name" because thymeleaf will give it the same name attribute as the one in User.java
+    @NotBlank
     private String companyName;
+    @NotBlank
     private String description;
+    @NotBlank
     private String location;
+    private String logoFileName;
+
     @Pattern(regexp="^[0-9]{10}$", message="Numero di telefono non valido")
     private String phoneNumber;
     @OneToMany(mappedBy="company", cascade = CascadeType.ALL)
@@ -70,6 +76,14 @@ public class Company {
 
     public void setJobAds(Set<JobAd> jobAds) {
         this.jobAds = jobAds;
+    }
+
+    public String getLogoFileName() {
+        return logoFileName;
+    }
+
+    public void setLogoFileName(String logoFileName) {
+        this.logoFileName = logoFileName;
     }
 
     @Override

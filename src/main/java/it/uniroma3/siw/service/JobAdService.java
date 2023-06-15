@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class JobAdService {
@@ -28,5 +29,10 @@ public class JobAdService {
     @Transactional
     public void deleteJobAd(JobAd jobAdToDelete) {
         this.jobAdRepository.delete(jobAdToDelete);
+    }
+
+    @Transactional
+    public Set<JobAd> findLast15JobAds() {
+        return this.jobAdRepository.findTop15ByOrderByIdDesc();
     }
 }

@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class JobAdController {
@@ -50,7 +48,7 @@ public class JobAdController {
             company.getJobAds().add(jobAd);
             //company ha il cascade all
             companyService.saveCompany(company);
-            return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model);
+            return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model, jobAdService.findLast15JobAds());
         } else {
             return "company/formAddJobAd";
         }
@@ -71,6 +69,6 @@ public class JobAdController {
 
         jobAdService.deleteJobAd(jobAdToDelete);
         companyService.saveCompany(company);
-        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model);
+        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model, jobAdService.findLast15JobAds());
     }
 }

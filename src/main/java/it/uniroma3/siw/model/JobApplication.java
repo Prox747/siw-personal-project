@@ -1,8 +1,6 @@
 package it.uniroma3.siw.model;
 
 import javax.persistence.*;
-import javax.persistence.Table;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

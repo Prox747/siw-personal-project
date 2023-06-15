@@ -16,7 +16,7 @@
     <div th:if="${movie}" class="container">
         <div class="title-container">
             <h1 id="title" th:text="${movie.title}"></h1>
-            <span th:if="${userIsRegistered}">
+            <span th:if="${userIsApplicant}">
                 <a th:href="@{'/registered/removeMovieToFavourites/' + ${movie.id}}" th:if="${isUserFavourite}" id="favourite-icon-full">&hearts;</a>
                 <a th:href="@{'/registered/addMovieToFavourites/' + ${movie.id}}" th:unless="${isUserFavourite}" id="favourite-icon-empty">&hearts;</a>
             </span>

@@ -1,21 +1,19 @@
 package it.uniroma3.siw.util;
-import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.model.JobAd;
 import it.uniroma3.siw.service.CredentialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import java.util.List;
+import java.util.Set;
 
 @Component
 public class ModelPreparationUtil {
     @Autowired
     CredentialsService credentialsService;
 
-    public String prepareModelForIndexTemplate(String template, Model modelToPrepare) {
-        if(credentialsService.userIsRecruiter()) {
-            modelToPrepare.addAttribute("userIsRecruiter", true);
-        }
+    public String prepareModelForIndexTemplate(String template, Model modelToPrepare, Set<JobAd> last15JobAdsAdded) {
+        modelToPrepare.addAttribute("newestJobAds", last15JobAdsAdded);
         return template;
     }
 
@@ -25,7 +23,7 @@ public class ModelPreparationUtil {
 //            modelToPrepare.addAttribute("actors", movieToInject.getActors());
 //        //se non siamo loggati
 //        if(!credentialsService.getCurrentCredentials().isPresent()) {
-//            modelToPrepare.addAttribute("userIsRegistered", false);
+//            modelToPrepare.addAttribute("userIsApplicant", false);
 //            modelToPrepare.addAttribute("userIsAdmin", false);
 //            return template;
 //        }
@@ -37,12 +35,12 @@ public class ModelPreparationUtil {
 //        if(credentialsService.userIsAdmin()) {
 //            //se è admin può cancellare le recensioni
 //            modelToPrepare.addAttribute("userIsAdmin", true);
-//            modelToPrepare.addAttribute("userIsRegistered", true);
+//            modelToPrepare.addAttribute("userIsApplicant", true);
 //            if(currentUserReview == null)
 //                modelToPrepare.addAttribute("userCanAddReview", true);
 //        }
-//        if(credentialsService.userIsRegistered()) {
-//            modelToPrepare.addAttribute("userIsRegistered", true);
+//        if(credentialsService.userIsApplicant()) {
+//            modelToPrepare.addAttribute("userIsApplicant", true);
 //            modelToPrepare.addAttribute("userIsAdmin", false);
 //            if(currentUserReview == null)
 //                modelToPrepare.addAttribute("userCanAddReview", true);
