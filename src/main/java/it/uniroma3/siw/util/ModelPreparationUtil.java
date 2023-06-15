@@ -12,6 +12,13 @@ public class ModelPreparationUtil {
     @Autowired
     CredentialsService credentialsService;
 
+    public String prepareModelForIndexTemplate(String template, Model modelToPrepare) {
+        if(credentialsService.userIsRecruiter()) {
+            modelToPrepare.addAttribute("userIsRecruiter", true);
+        }
+        return template;
+    }
+
 //    public String prepareModelForMovieTemplate(String template, Model modelToPrepare, Movie movieToInject) {
 //        modelToPrepare.addAttribute("movie", movieToInject);
 //        if(movieToInject.getActors() != null)
@@ -68,15 +75,6 @@ public class ModelPreparationUtil {
 //        //se è admin o è registrato e non ha ancora recensito il film, può aggiungere una recensione
 //        if(credentialsService.userIsAdmin()) {
 //            //se è admin può cancellare le recensioni
-//            modelToPrepare.addAttribute("userIsAdmin", true);
-//        }
-//        return template;
-//    }
-//
-//    public String prepareModelForIndexTemplate(String template, Model modelToPrepare, List<Artist> artists, List<Movie> movies) {
-//        modelToPrepare.addAttribute("artists", artists);
-//        modelToPrepare.addAttribute("movies", movies);
-//        if(credentialsService.userIsAdmin()) {
 //            modelToPrepare.addAttribute("userIsAdmin", true);
 //        }
 //        return template;

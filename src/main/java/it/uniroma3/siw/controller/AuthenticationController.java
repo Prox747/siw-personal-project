@@ -50,7 +50,7 @@ public class AuthenticationController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return "index.html";
+        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model);
     }
 
     @GetMapping("/success")
@@ -68,7 +68,7 @@ public class AuthenticationController {
         // se user e credential hanno entrambi contenuti validi, memorizza User e le Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
-            credentialsService.saveCredentials(credentials);
+            credentialsService.saveCredentials(credentials, Credentials.DEFAULT_ROLE);
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
@@ -96,7 +96,7 @@ public class AuthenticationController {
             //-----------------------------------------------------------------
             user.setCompany(company);
             credentials.setUser(user);
-            credentialsService.saveCredentials(credentials);
+            credentialsService.saveCredentials(credentials, Credentials.RECRUITER_ROLE);
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }

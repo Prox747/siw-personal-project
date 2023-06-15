@@ -20,7 +20,6 @@ public class User {
     String username;
     @OneToOne(cascade = CascadeType.ALL)
     private Company company;
-
     @OneToMany(mappedBy="applicant", cascade = CascadeType.ALL)
     private Set<JobApplication> jobApplications;
 

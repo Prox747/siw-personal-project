@@ -3,23 +3,26 @@ package it.uniroma3.siw.model;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "job_applications")
 public class JobApplication {
+    public static final String STATUS_PENDING = "pending";
+    public static final String STATUS_ACCEPTED = "accepted";
+    public static final String STATUS_REJECTED = "rejected";
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name="id_job_ad")
     private JobAd jobAd;
-
     @ManyToOne
     @JoinColumn(name="id_user")
     private User applicant;
-    private LocalDate applicationDate;
+    private LocalDateTime applicationDate;
     private String status;
 
     public Long getId() {
@@ -46,11 +49,11 @@ public class JobApplication {
         this.applicant = applicant;
     }
 
-    public LocalDate getApplicationDate() {
+    public LocalDateTime getApplicationDate() {
         return applicationDate;
     }
 
-    public void setApplicationDate(LocalDate applicationDate) {
+    public void setApplicationDate(LocalDateTime applicationDate) {
         this.applicationDate = applicationDate;
     }
 
@@ -68,10 +71,5 @@ public class JobApplication {
         if (o == null || getClass() != o.getClass()) return false;
         JobApplication that = (JobApplication) o;
         return Objects.equals(id, that.id) && Objects.equals(jobAd, that.jobAd) && Objects.equals(applicant, that.applicant) && Objects.equals(applicationDate, that.applicationDate) && Objects.equals(status, that.status);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, jobAd, applicant, applicationDate, status);
     }
 }

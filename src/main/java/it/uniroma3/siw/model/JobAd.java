@@ -1,7 +1,10 @@
 package it.uniroma3.siw.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,17 +15,20 @@ public class JobAd {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name="id_company")
     private Company company;
     @OneToMany(mappedBy = "jobAd", cascade = CascadeType.ALL)
     private Set<JobApplication> jobApplications;
+    @NotBlank
     private String title;
+    @NotBlank
     private String description;
+    @NotBlank
     private String field;
-    private String requisites;
-    private LocalDate publicationDate;
+    @NotBlank
+    private String requirements;
+    private LocalDateTime publicationDate;
 
     public JobAd() { jobApplications = new HashSet<>(); }
 
@@ -66,20 +72,28 @@ public class JobAd {
         this.field = field;
     }
 
-    public String getRequisites() {
-        return requisites;
+    public String getRequirements() {
+        return requirements;
     }
 
-    public void setRequisites(String requisites) {
-        this.requisites = requisites;
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
     }
 
-    public LocalDate getPublicationDate() {
+    public LocalDateTime getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
+    public void setPublicationDate(LocalDateTime publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public Set<JobApplication> getJobApplications() {
+        return jobApplications;
+    }
+
+    public void setJobApplications(Set<JobApplication> jobApplications) {
+        this.jobApplications = jobApplications;
     }
 
     @Override
@@ -87,11 +101,6 @@ public class JobAd {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobAd jobAd = (JobAd) o;
-        return Objects.equals(id, jobAd.id) && Objects.equals(company, jobAd.company) && Objects.equals(title, jobAd.title) && Objects.equals(description, jobAd.description) && Objects.equals(field, jobAd.field) && Objects.equals(requisites, jobAd.requisites) && Objects.equals(publicationDate, jobAd.publicationDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, company, title, description, field, requisites, publicationDate);
+        return Objects.equals(id, jobAd.id) && Objects.equals(company, jobAd.company) && Objects.equals(title, jobAd.title) && Objects.equals(description, jobAd.description) && Objects.equals(field, jobAd.field) && Objects.equals(requirements, jobAd.requirements) && Objects.equals(publicationDate, jobAd.publicationDate);
     }
 }

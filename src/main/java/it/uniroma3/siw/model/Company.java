@@ -79,9 +79,4 @@ public class Company {
         Company company = (Company) o;
         return Objects.equals(id, company.id) && Objects.equals(companyName, company.companyName) && Objects.equals(description, company.description) && Objects.equals(location, company.location) && Objects.equals(phoneNumber, company.phoneNumber) && Objects.equals(jobAds, company.jobAds);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, companyName, description, location, phoneNumber, jobAds);
-    }
 }

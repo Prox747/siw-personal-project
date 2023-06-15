@@ -9,7 +9,22 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
 
-    <div class="main">
+    <div id="main">
+        <a th:if="${userIsRecruiter}" th:href="@{'/company/newJobAd'}">+ Pubblica annuncio</a>
+        <div id="company-jobAds" th:if="${userIsRecruiter}">
+            <h1>I miei annunci</h1>
+            <div id="jobAds-container">
+                <div th:each="jobAd : ${currentUser.company.jobAds}" class="jobAd">
+                    <h2 th:text="${jobAd.title}">Titolo</h2>
+                    <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
+                    <p th:text="${jobAd.description}">Descrizione</p>
+                    <p th:text="${jobAd.field}">Settore</p>
+                    <p th:text="${jobAd.requirements}">Requisiti</p>
+                    <a th:href="@{'/company/editJobAd' + ${jobAd.id}}">Modifica</a>
+                    <a th:href="@{'/company/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 </body>
