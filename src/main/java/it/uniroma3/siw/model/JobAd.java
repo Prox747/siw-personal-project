@@ -1,6 +1,8 @@
 package it.uniroma3.siw.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -28,6 +30,10 @@ public class JobAd {
     private String field;
     @NotBlank
     private String requirements;
+    @NotNull
+    @Max(100000)
+    @Min(200)
+    private int salary;
     private LocalDateTime publicationDate;
 
     public JobAd() { jobApplications = new HashSet<>(); }
@@ -94,6 +100,14 @@ public class JobAd {
 
     public void setJobApplications(Set<JobApplication> jobApplications) {
         this.jobApplications = jobApplications;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
     @Override

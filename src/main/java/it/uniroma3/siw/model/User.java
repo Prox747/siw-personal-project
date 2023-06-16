@@ -25,6 +25,7 @@ public class User {
     @OneToMany(mappedBy="applicant", cascade = CascadeType.ALL)
     private Set<JobApplication> jobApplications;
 
+    //used in thyeleaf
     public boolean hasAppliedToJobAd(JobAd jobAd) {
         for(JobApplication jobApplication : this.jobApplications) {
             if(jobApplication.getJobAd().equals(jobAd))

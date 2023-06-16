@@ -11,8 +11,9 @@
 
 <div id="main">
 
-    <div th:unless="${currentUser.logoImageFile}">
-        <a href="/applicant/profile">Completa il tuo profilo aggiungendo una foto</a>
+    <!-- se l'utente non ha un'immagine profilo -->
+    <div th:if="${userIsApplicant and currentUser.imageFileName == null}">
+        <a href="/applicant/profile">Completa il tuo profilo aggiungendo una foto per poterti candidare</a>
     </div>
 
     <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
@@ -22,6 +23,7 @@
         <div th:unless="${currentUser.company.jobAds.isEmpty()}" id="jobAds-container">
             <div th:each="jobAd : ${currentUser.company.jobAds}">
                 <h2 th:text="${jobAd.title}">Titolo</h2>
+                <p th:text="${jobAd.salary} + '€'">paga</p>
                 <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
                 <p th:text="${jobAd.description}">Descrizione</p>
                 <p th:text="${jobAd.field}">Settore</p>
@@ -38,13 +40,14 @@
         <div th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div th:unless="${newestJobAds.isEmpty()}">
 
-            <div th:if="${!currentUser.jobApplications.isEmpty()}">
+            <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}">
                 <span>Controlla le tue candidature nella pagina del </span><a href="/applicant/profile">profilo</a>
             </div>
 
             <!-- i vari annunci -->
             <div th:each="jobAd : ${newestJobAds}">
                 <h2 th:text="${jobAd.title}">Titolo</h2>
+                <p th:text="${jobAd.salary} + '€'">paga</p>
                 <a th:text="${jobAd.company.companyName}" th:href="@{'/companies/' + ${jobAd.company.id}}">Nome
                     azienda</a>
                 <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
@@ -53,7 +56,7 @@
                 <p th:text="${jobAd.requirements}">Requisiti</p>
 
                 <!--varie opzioni in base al tipo di utente e candidature-->
-                <a th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd)}"
+                <a th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd) and currentUser.imageFileName != null}"
                    th:href="@{'/applicate/' + ${jobAd.id}}">Candidati</a>
                 <p th:if="${userIsApplicant and currentUser.hasAppliedToJobAd(jobAd)}">Candidatura inviata</p>
                 <a th:if="${not userIsRegistered}" th:href="@{'/login'}">Accedi per candidarti</a>

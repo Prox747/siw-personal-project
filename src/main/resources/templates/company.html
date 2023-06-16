@@ -34,7 +34,8 @@
         <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
             <div th:each="jobAd : ${company.jobAds}">
                 <h2 th:text="${jobAd.title}">Titolo</h2>
-                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
+                <p th:text="${jobAd.salary} + '€'">paga</p>
+                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}">dataPubblicazione</p>
                 <p th:text="${jobAd.description}">Descrizione</p>
                 <p th:text="${jobAd.field}">Settore</p>
                 <p th:text="${jobAd.requirements}">Requisiti</p>

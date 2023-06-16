@@ -11,7 +11,7 @@
 
 <div class="profile-card">
     <div class="profile-pic">
-        <form class="modifyProfilePic" th:action="@{/recruiter/addedPic}" method="post" enctype="multipart/form-data">
+        <form class="modifyProfilePic" th:action="@{/applicant/addedPic}" method="post" enctype="multipart/form-data">
             <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
             <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
         </form>
