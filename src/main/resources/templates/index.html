@@ -7,43 +7,60 @@
     <script src="/js/indexSearch.js"></script>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-    <div id="main">
-        <a th:if="${userIsRecruiter}" th:href="@{'/company/newJobAd'}">+ Pubblica annuncio</a>
-        <div id="company-jobAds" th:if="${userIsRecruiter}">
-            <h1>I miei annunci</h1>
-            <div th:if="${currentUser.company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
-            <div th:unless="${currentUser.company.jobAds.isEmpty()}" id="jobAds-container">
-                <div th:each="jobAd : ${currentUser.company.jobAds}">
-                    <h2 th:text="${jobAd.title}">Titolo</h2>
-                    <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-                    <p th:text="${jobAd.description}">Descrizione</p>
-                    <p th:text="${jobAd.field}">Settore</p>
-                    <p th:text="${jobAd.requirements}">Requisiti</p>
-                    <a th:href="@{'/company/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
-                    <a th:href="@{'/company/editJobAd' + ${jobAd.id}}">Modifica</a>
-                    <a th:href="@{'/company/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <h1>Annunci più recenti</h1>
-            <div th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
-            <div th:unless="${newestJobAds.isEmpty()}">
-                <div th:each="jobAd : ${newestJobAds}">
-                    <h2 th:text="${jobAd.title}">Titolo</h2>
-                    <a th:text="${jobAd.company.companyName}" th:href="@{'/companies/' + ${jobAd.company.id}}">Nome azienda</a>
-                    <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-                    <p th:text="${jobAd.description}">Descrizione</p>
-                    <p th:text="${jobAd.field}">Settore</p>
-                    <p th:text="${jobAd.requirements}">Requisiti</p>
-                    <a th:if="${userIsApplicant}" th:href="@{'/applicate/' + ${jobAd.id}}">Candidati</a>
-                    <a th:if="${not userIsRegistered}" th:href="@{'/login'}">Accedi per candidarti</a>
-                </div>
-            </div>
-        </div>
+<div id="main">
 
+    <div th:unless="${currentUser.logoImageFile}">
+        <a href="/applicant/profile">Completa il tuo profilo aggiungendo una foto</a>
     </div>
+
+    <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
+    <div id="company-jobAds" th:if="${userIsRecruiter}">
+        <h1>I miei annunci</h1>
+        <div th:if="${currentUser.company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
+        <div th:unless="${currentUser.company.jobAds.isEmpty()}" id="jobAds-container">
+            <div th:each="jobAd : ${currentUser.company.jobAds}">
+                <h2 th:text="${jobAd.title}">Titolo</h2>
+                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
+                <p th:text="${jobAd.description}">Descrizione</p>
+                <p th:text="${jobAd.field}">Settore</p>
+                <p th:text="${jobAd.requirements}">Requisiti</p>
+                <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
+                <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
+                <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+            </div>
+        </div>
+    </div>
+    <div>
+
+        <h1>Annunci più recenti</h1>
+        <div th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
+        <div th:unless="${newestJobAds.isEmpty()}">
+
+            <div th:if="${!currentUser.jobApplications.isEmpty()}">
+                <span>Controlla le tue candidature nella pagina del </span><a href="/applicant/profile">profilo</a>
+            </div>
+
+            <!-- i vari annunci -->
+            <div th:each="jobAd : ${newestJobAds}">
+                <h2 th:text="${jobAd.title}">Titolo</h2>
+                <a th:text="${jobAd.company.companyName}" th:href="@{'/companies/' + ${jobAd.company.id}}">Nome
+                    azienda</a>
+                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
+                <p th:text="${jobAd.description}">Descrizione</p>
+                <p th:text="${jobAd.field}">Settore</p>
+                <p th:text="${jobAd.requirements}">Requisiti</p>
+
+                <!--varie opzioni in base al tipo di utente e candidature-->
+                <a th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd)}"
+                   th:href="@{'/applicate/' + ${jobAd.id}}">Candidati</a>
+                <p th:if="${userIsApplicant and currentUser.hasAppliedToJobAd(jobAd)}">Candidatura inviata</p>
+                <a th:if="${not userIsRegistered}" th:href="@{'/login'}">Accedi per candidarti</a>
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

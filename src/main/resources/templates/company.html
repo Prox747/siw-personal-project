@@ -7,40 +7,42 @@
 </head>
 <body>
 
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-    <div class="company-card">
-      <div class="company-logo">
-          <form class="modifyProfilePic" th:action="@{/company/addedPic}" method="post" enctype="multipart/form-data" >
-              <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
-              <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
-          </form>
-          <img th:if="${company.logoFileName}" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}" alt="company_logo">
-      </div>
-      <div class="nome azienda" th:text="${company.companyName}">nome azienda</div>
-      <div class="company-desc" th:text="${company.description}">descrizione</div>
+<div class="company-card">
+    <div class="company-logo">
+        <form class="modifyProfilePic" th:action="@{/templates/recruiter/addedPic}" method="post"
+              enctype="multipart/form-data">
+            <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
+            <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
+        </form>
+        <img th:if="${company.logoFileName}" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
+             alt="company_logo">
+    </div>
+    <div class="nome azienda" th:text="${company.companyName}">nome azienda</div>
+    <div class="company-desc" th:text="${company.description}">descrizione</div>
 
-      <div id="contacts">
-          <span th:text="'Sede' + ${company.location}" >sede</span>
-          <span th:text="'Telefono: ' + ${company.phoneNumber}" >telefono</span>
-      </div>
+    <div id="contacts">
+        <span>Sede: </span><span th:text="${company.location}">sede</span>
+        <span>Telefono: </span><span th:text="${company.phoneNumber}">telefono</span>
+    </div>
 
-      <div id="job-applications">
-          <h1 id="job-appl-title">Annunci pubblicati</h1>
-          <div id="emptyList" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
-          <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
-              <div th:each="jobAd : ${company.jobAds}">
-                  <h2 th:text="${jobAd.title}">Titolo</h2>
-                  <a th:text="${jobAd.company.companyName}" th:href="@{'/companies/' + ${jobAd.company.id}}">Nome azienda</a>
-                  <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-                  <p th:text="${jobAd.description}">Descrizione</p>
-                  <p th:text="${jobAd.field}">Settore</p>
-                  <p th:text="${jobAd.requirements}">Requisiti</p>
-                  <a th:href="@{'/company/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
-              </div>
-          </div>
-      </div>
-  </div>
+    <!--  gli annunci pubblicati dall'azienda  -->
+    <div id="job-applications">
+        <h1 id="job-appl-title">Annunci pubblicati</h1>
+        <div id="emptyList" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
+        <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
+            <div th:each="jobAd : ${company.jobAds}">
+                <h2 th:text="${jobAd.title}">Titolo</h2>
+                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
+                <p th:text="${jobAd.description}">Descrizione</p>
+                <p th:text="${jobAd.field}">Settore</p>
+                <p th:text="${jobAd.requirements}">Requisiti</p>
+                <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

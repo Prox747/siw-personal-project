@@ -1,9 +1,6 @@
 package it.uniroma3.siw.controller;
 
-import it.uniroma3.siw.model.Company;
-import it.uniroma3.siw.model.JobAd;
-import it.uniroma3.siw.model.JobApplication;
-import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.model.*;
 import it.uniroma3.siw.service.CompanyService;
 import it.uniroma3.siw.service.JobAdService;
 import it.uniroma3.siw.service.UserService;
@@ -31,18 +28,18 @@ public class JobAdController {
     @Autowired
     ModelPreparationUtil modelPreparationUtil;
 
-    @GetMapping("/company/newJobAd")
+    @GetMapping("/recruiter/newJobAd")
     public String showNewJobAdForm(Model model) {
         model.addAttribute("jobAd", new JobAd());
-        return "company/formAddJobAd";
+        return "recruiter/formAddJobAd";
     }
 
-    @PostMapping("/company/addedJobAd")
+    @PostMapping("/recruiter/addedJobAd")
     public String addJobAd(@Valid @ModelAttribute("jobAd") JobAd jobAd, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             //in toeria non può essere null, per invocare questo metodo bisogna
             // essere loggati come reclutatori, quindi avere un'azienda
-            Company company = userService.getCurrentUser().getCompany();
+            Company company = ((Recruiter)userService.getCurrentUser()).getCompany();
             jobAd.setCompany(company);
             jobAd.setPublicationDate(LocalDateTime.now());
             company.getJobAds().add(jobAd);
@@ -50,13 +47,13 @@ public class JobAdController {
             companyService.saveCompany(company);
             return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model, jobAdService.findLast15JobAds());
         } else {
-            return "company/formAddJobAd";
+            return "recruiter/formAddJobAd";
         }
     }
 
-    @GetMapping("/company/deleteJobAd/{id}")
+    @GetMapping("/recruiter/deleteJobAd/{id}")
     public String deleteJobAd(@PathVariable("id") Long jobAdId, Model model) {
-        Company company = userService.getCurrentUser().getCompany();
+        Company company = ((Recruiter)userService.getCurrentUser()).getCompany();
         JobAd jobAdToDelete = jobAdService.getJobAd(jobAdId);
         company.getJobAds().remove(jobAdToDelete);
 

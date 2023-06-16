@@ -10,7 +10,7 @@
         <div class="headerElements" th:if="${currentUser}">
             <a class="home" id="home1" href="/">Home</a>
             <span class="endElements">
-                <a class="username-container" href="/registered/profile">
+                <a class="username-container" href="/applicant/profile">
                     <img class="profile-pic-header" th:src="@{'/upload/images/userProfilePics/' + ${currentUser.imageFileName}}" alt="profile pic">
                     <span id="username" th:text="${currentUser.username}"></span>
                 </a>

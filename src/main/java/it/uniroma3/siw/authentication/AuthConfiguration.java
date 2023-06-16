@@ -39,12 +39,12 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/js/**", "/images/**", "favicon.ico", "/upload/**").permitAll()
                 // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
                 .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
-                // solo gli utenti autenticati con ruolo RECRUITER possono accedere a risorse con path /company/**
-                .antMatchers(HttpMethod.GET, "/company/**").hasAnyAuthority(Credentials.RECRUITER_ROLE)
-                .antMatchers(HttpMethod.POST, "/company/**").hasAnyAuthority(Credentials.RECRUITER_ROLE)
-                // solo gli utenti autenticati con ruolo DEFAULT possono accedere a risorse con path /registered/**
-                .antMatchers(HttpMethod.GET, "/registered/**").hasAnyAuthority(Credentials.DEFAULT_ROLE)
-                .antMatchers(HttpMethod.POST, "/registered/**").hasAnyAuthority(Credentials.DEFAULT_ROLE)
+                // solo gli utenti autenticati con ruolo RECRUITER possono accedere a risorse con path /recruiter/**
+                .antMatchers(HttpMethod.GET, "/recruiter/**").hasAnyAuthority(Credentials.RECRUITER_ROLE)
+                .antMatchers(HttpMethod.POST, "/recruiter/**").hasAnyAuthority(Credentials.RECRUITER_ROLE)
+                // solo gli utenti autenticati con ruolo DEFAULT possono accedere a risorse con path /applicant/**
+                .antMatchers(HttpMethod.GET, "/applicant/**").hasAnyAuthority(Credentials.DEFAULT_ROLE)
+                .antMatchers(HttpMethod.POST, "/applicant/**").hasAnyAuthority(Credentials.DEFAULT_ROLE)
                 // tutti gli utenti possono accere alle pagine rimanenti
                 .anyRequest().permitAll()
                 .and().exceptionHandling().accessDeniedPage("/index")

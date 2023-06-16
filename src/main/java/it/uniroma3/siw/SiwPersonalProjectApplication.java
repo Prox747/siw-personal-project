@@ -17,11 +17,10 @@ public class SiwPersonalProjectApplication {
     public class WebConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            String absolutePathToImages = "C:/Users/Carlo/IdeaProjects/siw-movie/src/main/upload";
+            String absolutePathToImages = System.getProperty("user.dir") + "/src/main/upload";
             registry.addResourceHandler("/upload/**")
                     .addResourceLocations("file:" + absolutePathToImages + "/")
                     .setCachePeriod(0);
         }
     }
-
 }

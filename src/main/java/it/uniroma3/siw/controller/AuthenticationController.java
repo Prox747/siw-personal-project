@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.Company;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Recruiter;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CompanyService;
 import it.uniroma3.siw.service.CredentialsService;
@@ -46,7 +47,7 @@ public class AuthenticationController {
 
     @GetMapping("/registerCompany")
     public String showRegisterFormCompany (Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("recruiter", new Recruiter());
         model.addAttribute("credentials", new Credentials());
         model.addAttribute("company", new Company());
         return "formRegisterCompany";
@@ -94,14 +95,14 @@ public class AuthenticationController {
     public String registerCompany(@RequestParam("logo") MultipartFile multipartFile,
                                @Valid @ModelAttribute("company") Company company,
                                BindingResult companyBindingResult,
-                               @Valid @ModelAttribute("user") User user,
-                               BindingResult userBindingResult, @Valid
+                               @Valid @ModelAttribute("recruiter") Recruiter recruiter,
+                               BindingResult recruiterBindingResult, @Valid
                                @ModelAttribute("credentials") Credentials credentials,
                                BindingResult credentialsBindingResult,
                                Model model) {
 
         // se user e credential hanno entrambi contenuti validi, memorizza User e le Credentials nel DB
-        if( ! (userBindingResult.hasErrors()
+        if( ! (recruiterBindingResult.hasErrors()
                 || credentialsBindingResult.hasErrors()
                 || companyBindingResult.hasErrors()
                 || multipartFile.isEmpty())) {
@@ -114,11 +115,11 @@ public class AuthenticationController {
             //-----------------------------------------------------------------
             //CREDENTIALS SALVA USER IN CASCADE E USER SALVA COMPANY IN CASCADE
             //-----------------------------------------------------------------
-            user.setCompany(company);
-            credentials.setUser(user);
+            recruiter.setCompany(company);
+            credentials.setUser(recruiter);
             credentialsService.saveCredentials(credentials, Credentials.RECRUITER_ROLE);
-            model.addAttribute("user", user);
-            return "registrationSuccessful";
+            model.addAttribute("recruiter", recruiter);
+            return "registrationCompanySuccessful";
         }
         return "formRegisterCompany";
     }

@@ -9,7 +9,7 @@
   <div th:replace="fragments/header :: header"></div>
 
   <h1>Inserisci un nuovo annuncio</h1>
-  <form class="container" th:action="@{/company/addedJobAd}" method="POST" th:object="${jobAd}">
+  <form class="container" th:action="@{/templates/recruiter/addedJobAd}" method="POST" th:object="${jobAd}">
     <div id="error-container" th:if="${#fields.hasGlobalErrors()}">
       <p class="errorMessage" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
     </div>

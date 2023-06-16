@@ -13,11 +13,12 @@
     <p th:text="${jobAd.description}">Descrizione</p>
     <p th:text="${jobAd.field}">Settore</p>
     <p th:text="${jobAd.requirements}">Requisiti</p>
-    <a th:href="@{'/company/editJobAd' + ${jobAd.id}}">Modifica</a>
-    <a th:href="@{'/company/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+    <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
+    <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
   </div>
 
-  <div id="jobAppls" th:unless="${jobAppls.isEmpty()}" >
+  <div id="job-applications">
+    <h1 id="job-appl-title">Candidature</h1>
     <div th:each="jobAppl : ${jobAppls}">
       <div id="applicant-info">
         <img th:src="@{'/upload/images/userProfilePics/' + ${jobAppl.applicant.imageFileName}}" alt="applicant_image"/>
@@ -27,8 +28,8 @@
       <div id="appl-status">
         <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
           <p>In attesa</p>
-          <a th:href="@{'/company/jobAds/' + ${jobAd.id} + '/applications/' + ${jobAppl.id} + '/accept'}">Accetta</a>
-          <a th:href="@{'/company/jobAds/' + ${jobAd.id} + '/applications/' + ${jobAppl.id} + '/reject'}">Rifiuta</a>
+          <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id} + '/applications/' + ${jobAppl.id} + '/accept'}">Accetta</a>
+          <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id} + '/applications/' + ${jobAppl.id} + '/reject'}">Rifiuta</a>
         </div>
         <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_ACCEPTED)}">
           <p>Accettata</p>
@@ -38,9 +39,9 @@
         </div>
     </div>
     </div>
-    <div id="no-jobAppls" th:if="${jobAppls.isEmpty()}" >
-      Nessuno si è ancora candidato per questo annuncio
-    </div>
+  </div>
+  <div id="no-jobAppls" th:if="${jobAppls.isEmpty()}">
+    Nessuno si è ancora candidato per questo annuncio
   </div>
 </body>
 </html>

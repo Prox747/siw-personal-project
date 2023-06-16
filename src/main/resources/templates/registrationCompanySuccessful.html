@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Registration successful</title>
+    <link rel="stylesheet" href="/css/form_style.css" type="text/css"/>
+</head>
+
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <h1>Congratulazioni ti sei registrato!</h1>
+  <h2>Reclutatore</h2>
+  <div class="registration-info">
+    <span>Nome: </span>
+    <span th:text="${recruiter.name}"></span>
+  </div>
+  <div class="registration-info">
+    <span>Cognome: </span>
+    <span th:text="${recruiter.surname}"></span>
+  </div>
+  <div class="registration-info">
+    <span>Email: </span>
+    <span th:text="${recruiter.email}"></span>
+  </div>
+
+    <h2>Azienda</h2>
+    <div class="registration-info">
+        <span>Nome: </span>
+      <span th:text="${company.name}"></span>
+    </div>
+    <div class="registration-info">
+        <span>Descrizione: </span>
+      <span th:text="${company.description}"></span>
+    </div>
+    <div class="registration-info">
+        <span>Sede: </span>
+      <span th:text="${company.location}"></span>
+    </div>
+    <div class="registration-info">
+        <span>Telefono: </span>
+      <span th:text="${company.phoneNumber}"></span>
+    </div>
+
+    <h2>Logo</h2>
+    <img th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}" alt="company_logo"/>
+</body>
+</html>

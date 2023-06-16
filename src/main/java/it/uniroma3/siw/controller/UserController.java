@@ -19,13 +19,14 @@ public class UserController {
     ModelPreparationUtil modelPreparationUtil;
 
     //lo user deve essere registrato o admin per accedere
-    @GetMapping("/registered/profile")
+    @GetMapping("/applicant/profile")
     public String getProfilePage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        return "registered/profile.html";
+        model.addAttribute("jobAppls", userService.getCurrentUser().getJobApplications());
+        return "applicant/applicantProfile.html";
     }
 
-    @PostMapping("/registered/addedPic")
+    @PostMapping("/applicant/addedPic")
     public String addOrModifyProfilePic(@RequestParam("image") MultipartFile multipartFile, Model model) {
         User user = userService.getCurrentUser();
         try {

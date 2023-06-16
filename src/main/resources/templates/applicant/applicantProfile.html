@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicant Profile</title>
+    <link rel="stylesheet" href="/css/profile.css" type="text/css">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="profile-card">
+    <div class="profile-pic">
+        <form class="modifyProfilePic" th:action="@{/recruiter/addedPic}" method="post" enctype="multipart/form-data">
+            <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
+            <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
+        </form>
+        <img th:unless="${user.imageFileName}" src="/upload/images/userProfilePics/default_pic.jpg" alt="profile pic">
+        <img th:if="${user.imageFileName}" th:src="@{'/upload/images/userProfilePics/' + ${user.imageFileName}}"
+             alt="profile_pic">
+    </div>
+    <div class="username" th:text="${user.username}">username</div>
+    <div class="user-info">
+        <span>Nome: </span><span th:text="${user.name}">nome</span>
+        <span>Cognome: </span><span th:text="${user.surname}">cognome</span>
+        <span>Email: </span><span th:text="${user.email}">email</span>
+    </div>
+
+    <div id="job-applications">
+        <h1 id="job-appl-title">Candidature</h1>
+        <div th:each="jobAppl : ${jobAppls}">
+            <div id="applicant-info">
+                <img th:src="@{'/upload/images/userProfilePics/' + ${jobAppl.applicant.imageFileName}}"
+                     alt="applicant_image"/>
+                <p th:text="${jobAppl.applicant.name} + ' ' + ${jobAppl.applicant.surname}">nome cognome</p>
+                <p th:text="${jobAppl.applicant.email}">email</p>
+            </div>
+            <div id="appl-status">
+                <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
+                    <p>In attesa</p>
+                </div>
+                <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_ACCEPTED)}">
+                    <p>Accettata</p>
+                </div>
+                <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_REJECTED)}">
+                    <p>Rifiutata</p>
+                </div>
+            </div>
+        </div>
+        <div th:if="${jobAppls.isEmpty()}">Non ti sei candidato per nessun annuncio</div>
+    </div>
+
+</div>
+
+</body>
+</html>

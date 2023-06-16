@@ -19,28 +19,28 @@ public class JobApplicationsController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/company/jobAds/{jobAdId}")
+    @GetMapping("/recruiter/jobAds/{jobAdId}")
     public String showJobAdApplications(@PathVariable("jobAdId") Long jobAdId, Model model) {
         JobAd jobAd = jobAdService.getJobAd(jobAdId);
         model.addAttribute("jobAd", jobAd);
         model.addAttribute("jobAppls", jobApplicationService.getApplicationsForJobAd(jobAd));
-        return "/company/jobAdApplications";
+        return "/recruiter/jobAdApplications";
     }
 
-    @GetMapping("/company/jobAds/{jobAdId}/applications/{applicationId}/accept")
+    @GetMapping("/recruiter/jobAds/{jobAdId}/applications/{applicationId}/accept")
     public String acceptApplication(@PathVariable("jobAdId") Long jobAdId,
                                     @PathVariable("applicationId") Long applicationId,
                                     Model model) {
         jobApplicationService.acceptApplication(applicationId);
-        return "redirect:/company/jobAds/{jobAdId}";
+        return "redirect:/recruiter/jobAds/{jobAdId}";
     }
 
-    @GetMapping("/company/jobAds/{jobAdId}/applications/{applicationId}/reject")
+    @GetMapping("/recruiter/jobAds/{jobAdId}/applications/{applicationId}/reject")
     public String rejectApplication(@PathVariable("jobAdId") Long jobAdId,
                                     @PathVariable("applicationId") Long applicationId,
                                     Model model) {
         jobApplicationService.rejectApplication(applicationId);
-        return "redirect:/company/jobAds/{jobAdId}";
+        return "redirect:/recruiter/jobAds/{jobAdId}";
     }
 
     @GetMapping("/applicate/{jobAdId}")

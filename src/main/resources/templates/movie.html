@@ -17,8 +17,8 @@
         <div class="title-container">
             <h1 id="title" th:text="${movie.title}"></h1>
             <span th:if="${userIsApplicant}">
-                <a th:href="@{'/registered/removeMovieToFavourites/' + ${movie.id}}" th:if="${isUserFavourite}" id="favourite-icon-full">&hearts;</a>
-                <a th:href="@{'/registered/addMovieToFavourites/' + ${movie.id}}" th:unless="${isUserFavourite}" id="favourite-icon-empty">&hearts;</a>
+                <a th:href="@{'/applicant/removeMovieToFavourites/' + ${movie.id}}" th:if="${isUserFavourite}" id="favourite-icon-full">&hearts;</a>
+                <a th:href="@{'/applicant/addMovieToFavourites/' + ${movie.id}}" th:unless="${isUserFavourite}" id="favourite-icon-empty">&hearts;</a>
             </span>
         </div>
 
@@ -34,7 +34,7 @@
             <!--RECENSIONI-->
             <div class="reviews-container">
                 <h1>Recensioni</h1>
-                <div th:if="${userCanAddReview}" class="new-review"><a th:href="@{'/registered/formAddReview/' + ${movie.id}}">+ Aggiungi recensione</a></div>
+                <div th:if="${userCanAddReview}" class="new-review"><a th:href="@{'/applicant/formAddReview/' + ${movie.id}}">+ Aggiungi recensione</a></div>
                 <div id="noReviews" th:if="${movie.reviews.isEmpty()}">Ancora nessuna recensione</div>
                 <div class="reviews-list-wrapper" th:unless="${movie.reviews.isEmpty()}">
                     <ul class="reviews">
@@ -59,7 +59,7 @@
 
                                 <div id="review-text" th:text="${review.content}">Testo</div>
 
-                                <a id="delete-review" th:if="${userIsAdmin or currentUserId == review.author.id}" th:href="@{'/registered/deleteReview/' + ${review.id}}">Cancella recensione</a>
+                                <a id="delete-review" th:if="${userIsAdmin or currentUserId == review.author.id}" th:href="@{'/applicant/deleteReview/' + ${review.id}}">Cancella recensione</a>
                             </div>
                         </li>
                     </ul>
