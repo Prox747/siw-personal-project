@@ -3,9 +3,13 @@ package it.uniroma3.siw.service;
 import it.uniroma3.siw.model.JobAd;
 import it.uniroma3.siw.repository.JobAdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,5 +38,21 @@ public class JobAdService {
     @Transactional
     public Set<JobAd> findLast15JobAds() {
         return this.jobAdRepository.findTop15ByOrderByIdDesc();
+    }
+
+    //ho provato a farlo col db ma era difficile, la mia prova è nella repository
+    @Transactional
+    public List<JobAd> find5MostPopularJobAds() {
+        List<JobAd> allJobAds = (List<JobAd>) jobAdRepository.findAll();
+        List<JobAd> top5JobAds = new ArrayList<>();
+
+        allJobAds.sort((a, b) -> b.getJobApplications().size() - a.getJobApplications().size());
+
+        //per ogni jobAd trovata, al massimo 5, la aggiungo alla lista da ritornare
+        for(int i = 0; i < Math.min(5, allJobAds.size()); i++) {
+            top5JobAds.add(allJobAds.get(i));
+        }
+
+        return top5JobAds;
     }
 }

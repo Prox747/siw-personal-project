@@ -31,8 +31,8 @@ public class JobAd {
     @NotBlank
     private String requirements;
     @NotNull
-    @Max(100000)
-    @Min(200)
+    @Max(value = 100000, message = "Il salario non può superare 100.000 euro")
+    @Min(value = 200, message = "Il salario deve essere almeno 200 euro")
     private int salary;
     private LocalDateTime publicationDate;
 

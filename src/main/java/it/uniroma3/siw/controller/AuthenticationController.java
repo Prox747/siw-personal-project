@@ -63,7 +63,8 @@ public class AuthenticationController {
         return modelPreparationUtil.prepareModelForIndexTemplate(
                 "index.html",
                 model,
-                jobAdService.findLast15JobAds());
+                jobAdService.findLast15JobAds(),
+                jobAdService.find5MostPopularJobAds());
     }
 
     @GetMapping("/success")

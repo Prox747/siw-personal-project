@@ -31,7 +31,8 @@
     <span class="errorMessage" th:if="${#fields.hasErrors('requirements')}" th:errors="${jobAd.requirements}"></span>
 
     <label for="paga">Paga (al mese): </label>
-    <input id="paga" required type="number" th:field="${jobAd.salary}" maxlength="6"/>
+    <input id="paga" required type="number" th:field="${jobAd.salary}"/>
+    <span class="errorMessage" th:if="${#fields.hasErrors('salary')}" th:errors="${jobAd.salary}"></span>
 
     <button type="submit" class="bottone">Inserisci</button>
   </form>

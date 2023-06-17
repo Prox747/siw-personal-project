@@ -45,7 +45,9 @@ public class JobAdController {
             company.getJobAds().add(jobAd);
             //company ha il cascade all
             companyService.saveCompany(company);
-            return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model, jobAdService.findLast15JobAds());
+            return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model,
+                    jobAdService.findLast15JobAds(),
+                    jobAdService.find5MostPopularJobAds());
         } else {
             return "recruiter/formAddJobAd";
         }
@@ -66,6 +68,8 @@ public class JobAdController {
 
         jobAdService.deleteJobAd(jobAdToDelete);
         companyService.saveCompany(company);
-        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model, jobAdService.findLast15JobAds());
+        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model,
+                jobAdService.findLast15JobAds(),
+                jobAdService.find5MostPopularJobAds());
     }
 }

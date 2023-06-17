@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -12,8 +13,11 @@ public class ModelPreparationUtil {
     @Autowired
     CredentialsService credentialsService;
 
-    public String prepareModelForIndexTemplate(String template, Model modelToPrepare, Set<JobAd> last15JobAdsAdded) {
+    public String prepareModelForIndexTemplate(String template, Model modelToPrepare,
+                                               Set<JobAd> last15JobAdsAdded,
+                                               List<JobAd> most5popularJobAds) {
         modelToPrepare.addAttribute("newestJobAds", last15JobAdsAdded);
+        modelToPrepare.addAttribute("mostPopularJobAds", most5popularJobAds);
         return template;
     }
 
