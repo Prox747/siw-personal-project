@@ -80,4 +80,8 @@ public class UserService {
         String uploadDir = "src/main/upload/images/userProfilePics/";
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
     }
+
+    public boolean isUsernameAvailable(String username) {
+        return !userRepository.existsByUsername(username);
+    }
 }

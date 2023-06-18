@@ -29,11 +29,13 @@
     <div id="job-applications">
         <h1 id="job-appl-title">Candidature</h1>
         <div th:each="jobAppl : ${jobAppls}">
-            <div id="applicant-info">
-                <img th:src="@{'/upload/images/userProfilePics/' + ${jobAppl.applicant.imageFileName}}"
-                     alt="applicant_image"/>
-                <p th:text="${jobAppl.applicant.name} + ' ' + ${jobAppl.applicant.surname}">nome cognome</p>
-                <p th:text="${jobAppl.applicant.email}">email</p>
+            <div id="jobad-info">
+                <h2 th:text="${jobAppl.jobAd.title}">Titolo</h2>
+                <p th:text="${jobAppl.jobAd.salary} + '€'">paga</p>
+                <p th:text="${#temporals.format(jobAppl.jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
+                <p th:text="${jobAppl.jobAd.description}">Descrizione</p>
+                <p th:text="${jobAppl.jobAd.field}">Settore</p>
+                <p th:text="${jobAppl.jobAd.requirements}">Requisiti</p>
             </div>
             <div id="appl-status">
                 <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">

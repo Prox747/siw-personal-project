@@ -5,62 +5,72 @@
     <title>FormRegisterCompany</title>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
 
-    <h1>Registra la tua azienda</h1>
-    <form class="container" th:action="@{/registerCompany}" method="POST" enctype="multipart/form-data">
+<div th:replace="fragments/header :: header"></div>
 
-        <h2>Reclutatore</h2>
-        <label for="usernameForRegistration">Username</label>
-        <input id="usernameForRegistration" type="text" placeholder="username" required th:field="${credentials.username}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"></span><br>
+<h1>Registra la tua azienda</h1>
+<form class="container" th:action="@{/registerCompany}" method="POST" enctype="multipart/form-data">
 
-        <div class="errorMessage" th:if="${erroreUpload}" th:text="${erroreUpload}">errore</div>
+    <div th:if="${erroreUsername}" th:text="${erroreUsername}"></div>
 
-        <label for="password">Password</label>
-        <input id="password" type="password" placeholder="password" required th:field="${credentials.password}"/><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
-              th:style="'color:red'">
+    <h2>Reclutatore</h2>
+    <label for="usernameForRegistration">Username</label>
+    <input id="usernameForRegistration" type="text" placeholder="username" required th:field="${credentials.username}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('credentials.username')}"
+          th:errors="${credentials.username}"></span><br>
+
+    <div class="errorMessage" th:if="${erroreUpload}" th:text="${erroreUpload}">errore</div>
+
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="password" required th:field="${credentials.password}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+          th:style="'color:red'">
         </span><br>
 
-        <label for="nome">Nome Reclutatore</label>
-        <input id="nome" type="text" placeholder="nome" required th:field="${recruiter.name}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('recruiter.name')}" th:errors="${recruiter.name}" th:style="'color:red'"></span><br>
+    <label for="nome">Nome Reclutatore</label>
+    <input id="nome" type="text" placeholder="nome" required th:field="${recruiter.name}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('recruiter.name')}" th:errors="${recruiter.name}"
+          th:style="'color:red'"></span><br>
 
 
-
-        <label for="cognome">Cognome Reclutatore</label>
-        <input id="cognome" type="text" placeholder="cognome" required th:field="${recruiter.surname}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('recruiter.surname')}" th:errors="${recruiter.surname}" th:style="'color:red'"></span><br>
-
-
-        <label for="email">Email Reclutatore</label>
-        <input id="email" type="text" placeholder="email" required th:field="${recruiter.email}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('recruiter.email')}" th:errors="${recruiter.email}" th:style="'color:red'"></span><br>
+    <label for="cognome">Cognome Reclutatore</label>
+    <input id="cognome" type="text" placeholder="cognome" required th:field="${recruiter.surname}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('recruiter.surname')}" th:errors="${recruiter.surname}"
+          th:style="'color:red'"></span><br>
 
 
-        <h2>Azienda</h2>
-        <label for="nomeAzienda">Nome Azienda</label>
-        <input id="nomeAzienda" type="text" placeholder="nome azienda" required th:field="${company.companyName}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('company.companyName')}" th:errors="${company.companyName}" th:style="'color:red'"></span><br>
+    <label for="email">Email Reclutatore</label>
+    <input id="email" type="text" placeholder="email" required th:field="${recruiter.email}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('recruiter.email')}" th:errors="${recruiter.email}"
+          th:style="'color:red'"></span><br>
 
-        <label for="description">Descrizione azienda</label>
-        <input id="description" type="text" placeholder="descrizione" required th:field="${company.description}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('company.description')}" th:errors="${company.description}" th:style="'color:red'"></span><br>
 
-        <label for="location">Sede</label>
-        <input id="location" type="text" placeholder="sede" required th:field="${company.location}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('company.location')}" th:errors="${company.location}" th:style="'color:red'"></span><br>
+    <h2>Azienda</h2>
+    <label for="nomeAzienda">Nome Azienda</label>
+    <input id="nomeAzienda" type="text" placeholder="nome azienda" required th:field="${company.companyName}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('company.companyName')}" th:errors="${company.companyName}"
+          th:style="'color:red'"></span><br>
 
-        <label for="phoneNumber">Telefono azienda</label>
-        <input id="phoneNumber" type="text" placeholder="telefono" required th:field="${company.phoneNumber}" /><br>
-        <span class="errorMessage" th:if="${#fields.hasErrors('company.phoneNumber')}" th:errors="${company.phoneNumber}" th:style="'color:red'"></span><br>
+    <label for="description">Descrizione azienda</label>
+    <input id="description" type="text" placeholder="descrizione" required th:field="${company.description}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('company.description')}" th:errors="${company.description}"
+          th:style="'color:red'"></span><br>
 
-        <label for="logo">Logo</label>
-        <input id="logo" type="file" placeholder="logo" name="logo" required accept="image/*"/><br>
+    <label for="location">Sede</label>
+    <input id="location" type="text" placeholder="sede" required th:field="${company.location}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('company.location')}" th:errors="${company.location}"
+          th:style="'color:red'"></span><br>
 
-        <button class="bottone" type="submit">Registra</button>
+    <label for="phoneNumber">Telefono azienda</label>
+    <input id="phoneNumber" type="text" placeholder="telefono" required th:field="${company.phoneNumber}"/><br>
+    <span class="errorMessage" th:if="${#fields.hasErrors('company.phoneNumber')}" th:errors="${company.phoneNumber}"
+          th:style="'color:red'"></span><br>
 
-    </form>
+    <label for="logo">Logo</label>
+    <input id="logo" type="file" placeholder="logo" name="logo" required accept="image/*"/><br>
+
+    <button class="bottone" type="submit">Registra</button>
+
+</form>
 </body>
 </html>

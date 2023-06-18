@@ -16,6 +16,8 @@
         <a href="/applicant/profile">Completa il tuo profilo aggiungendo una foto per poterti candidare</a>
     </div>
 
+    <!-- DA LEVARE -->
+    <p style="color:red; font-size:2.4rem">DEVO AGGIUNGERE FILTRAGGIO E MODIFICA DEGLI ANNUNCI, FORSE ENTITA' CV</p>
 
     <!-- ANNUNCI DELL'AZIENDA, LEVALI DA QUI, METTILI IN PROFILO AZIENDA -->
     <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
@@ -37,14 +39,17 @@
         </div>
     </div>
 
+    <!-- AVVISO PER L'UTENTE -->
+    <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}">
+        <span>Controlla le tue candidature nella pagina del </span><a href="/applicant/profile">profilo</a>
+    </div>
+
     <!-- ANNUNCI PIU' POPOLARI -->
     <div>
         <h1>Annunci più popolari</h1>
         <div th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div th:unless="${mostPopularJobAds.isEmpty()}">
-            <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}">
-                <span>Controlla le tue candidature nella pagina del </span><a href="/applicant/profile">profilo</a>
-            </div>
+
             <!-- i vari annunci -->
             <div th:each="jobAd : ${mostPopularJobAds}">
                 <h2 th:text="${jobAd.title}">Titolo</h2>
@@ -69,10 +74,6 @@
         <h1>Annunci più recenti</h1>
         <div th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div th:unless="${newestJobAds.isEmpty()}">
-
-            <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}">
-                <span>Controlla le tue candidature nella pagina del </span><a href="/applicant/profile">profilo</a>
-            </div>
 
             <!-- i vari annunci -->
             <div th:each="jobAd : ${newestJobAds}">

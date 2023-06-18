@@ -74,18 +74,21 @@ public class AuthenticationController {
 
     @PostMapping("/registerUser")
     public String registerUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult userBindingResult, @Valid
-                               @ModelAttribute("credentials") Credentials credentials,
+                               BindingResult userBindingResult,
+                               @Valid @ModelAttribute("credentials") Credentials credentials,
                                BindingResult credentialsBindingResult,
                                Model model) {
 
         // se user e credential hanno entrambi contenuti validi, memorizza User e le Credentials nel DB
-        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()
+            && userService.isUsernameAvailable(credentials.getUsername())) {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials, Credentials.DEFAULT_ROLE);
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
+        if( !userService.isUsernameAvailable(credentials.getUsername()) )
+            model.addAttribute("erroreUsername", "Username già in uso");
         return "formRegisterUser";
     }
 
@@ -103,10 +106,11 @@ public class AuthenticationController {
                                Model model) {
 
         // se user e credential hanno entrambi contenuti validi, memorizza User e le Credentials nel DB
-        if( ! (recruiterBindingResult.hasErrors()
-                || credentialsBindingResult.hasErrors()
-                || companyBindingResult.hasErrors()
-                || multipartFile.isEmpty())) {
+        if( !recruiterBindingResult.hasErrors()
+                && !credentialsBindingResult.hasErrors()
+                && !companyBindingResult.hasErrors()
+                && !multipartFile.isEmpty()
+                && userService.isUsernameAvailable(credentials.getUsername())) {
             try{
                 companyService.addImageToCompany(company, multipartFile);
             } catch (IOException e) {
@@ -122,6 +126,11 @@ public class AuthenticationController {
             model.addAttribute("recruiter", recruiter);
             return "registrationCompanySuccessful";
         }
+        //per validare lo user dovrei creare un oggetto wrapper per user e credentials
+        //per poi poter rilevare gli errori nei global errors della form
+        //perchè altrimenti mi da errore perchè vuole un th:object nella form
+        if( !userService.isUsernameAvailable(credentials.getUsername()) )
+            model.addAttribute("erroreUsername", "Username già in uso");
         return "formRegisterCompany";
     }
 }
