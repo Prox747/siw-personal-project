@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
+    <nothing th:replace="fragments/bootstrap_fragment :: bootstrap-dep"></nothing>
 </head>
 <body>
-  <th:block th:fragment="header">
-    <header>
-        <div class="headerElements" th:if="${currentUser}">
-            <a class="home" id="home1" href="/">Home</a>
-            <span class="endElements">
-                <a class="username-container" href="/applicant/profile">
-                    <img class="profile-pic-header" th:src="@{'/upload/images/userProfilePics/' + ${currentUser.imageFileName}}" alt="profile pic">
-                    <span id="username" th:text="${currentUser.username}"></span>
-                </a>
-                <span class="whitespace">-</span>
-                <a id="logout" href="/logout">Logout</a>
-            </span>
+<th:block th:fragment="header">
+    <header class="container-fluid bg-light border">
+        <div class="row align-items-center justify-content-between px-3 py-2" th:if="${currentUser}">
+            <a class="col-1 btn btn-light border" href="/">Home</a>
+            <div class="col-3">
+                <div class="row justify-content-evenly">
+                    <a class="hover-darker col-6 border rounded py-1 text-decoration-none" href="/applicant/profile">
+                        <img th:if="${currentUser.imageFileName}" class="object-fit-cover rounded-circle" style="width: 50px"
+                             th:src="@{'/upload/images/userProfilePics/' + ${currentUser.imageFileName}}" alt="profile pic">
+                        <img th:unless="${currentUser.imageFileName}" class="object-fit-cover rounded-circle" style="width: 50px"
+                             th:src="@{/upload/images/userProfilePics/default_pic.jpg}" alt="profile pic">
+                        <span class="text-dark text-truncate mx-2" th:text="${currentUser.username}"></span>
+                    </a>
+                    <a class="col-4 btn btn-light border my-auto" href="/logout">Logout</a>
+                </div>
+            </div>
         </div>
-        <div class="headerElements" th:unless="${currentUser}">
-            <a class="home" id="home2" href="/">Home</a>
-            <a class="endElements" id="login" href="/login">Login</a>
+        <div class="row align-items-center justify-content-between px-3 py-2" th:unless="${currentUser}">
+            <a class="col-1 btn btn-light border" href="/">Home</a>
+            <a class="col-1 btn btn-light border" href="/login">Login</a>
         </div>
+
     </header>
-    </th:block>
+</th:block>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" content="text/html">
     <title>LoginPage</title>
-    <link rel="stylesheet" href="/css/form_style.css" type="text/css"/>
+    <nothing th:replace="fragments/bootstrap_fragment :: bootstrap-dep"></nothing>
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
@@ -16,7 +16,7 @@
         <label for="password">Password: </label>
         <input id="password" required type="password" name="password"/><br>
 
-        <div class="errorMessage" th:if="${param.error != null}">Username o password errati</div>
+        <div class="alert alert-error" th:if="${param.error != null}">Username o password errati</div>
 
         <button type="submit" class="bottone">Login</button><br>
 

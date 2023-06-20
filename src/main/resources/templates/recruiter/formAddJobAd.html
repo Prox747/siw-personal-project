@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>formAddReview</title>
-    <link rel="stylesheet" href="/css/form_style.css">
+    <nothing th:replace="fragments/bootstrap_fragment :: bootstrap-dep"></nothing>
 </head>
 <body>
   <div th:replace="fragments/header :: header"></div>
@@ -11,28 +11,28 @@
   <h1>Inserisci un nuovo annuncio</h1>
   <form class="container" th:action="@{/recruiter/addedJobAd}" method="POST" th:object="${jobAd}">
     <div id="error-container" th:if="${#fields.hasGlobalErrors()}">
-      <p class="errorMessage" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+      <p class="alert alert-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
     </div>
 
     <label for="titolo">Titolo:</label>
     <input id="titolo" required type="text" th:field="${jobAd.title}" maxlength="255"/>
-    <span class="errorMessage" th:if="${#fields.hasErrors('title')}" th:errors="${jobAd.title}"></span>
+    <span class="alert alert-error" th:if="${#fields.hasErrors('title')}" th:errors="${jobAd.title}"></span>
 
     <label for="descrizione">Descrizione: </label>
     <input id="descrizione" required type="text" th:field="${jobAd.description}" maxlength="255"/>
-    <span class="errorMessage" th:if="${#fields.hasErrors('description')}" th:errors="${jobAd.description}"></span>
+    <span class="alert alert-error" th:if="${#fields.hasErrors('description')}" th:errors="${jobAd.description}"></span>
 
     <label for="field">Settore: </label>
     <input id="field" required type="text" th:field="${jobAd.field}" maxlength="255"/>
-    <span class="errorMessage" th:if="${#fields.hasErrors('field')}" th:errors="${jobAd.field}"></span>
+    <span class="alert alert-error" th:if="${#fields.hasErrors('field')}" th:errors="${jobAd.field}"></span>
 
     <label for="requisiti">Requisiti: </label>
     <input id="requisiti" required type="text" th:field="${jobAd.requirements}" maxlength="255"/>
-    <span class="errorMessage" th:if="${#fields.hasErrors('requirements')}" th:errors="${jobAd.requirements}"></span>
+    <span class="alert alert-error" th:if="${#fields.hasErrors('requirements')}" th:errors="${jobAd.requirements}"></span>
 
     <label for="paga">Paga (al mese): </label>
     <input id="paga" required type="number" th:field="${jobAd.salary}"/>
-    <span class="errorMessage" th:if="${#fields.hasErrors('salary')}" th:errors="${jobAd.salary}"></span>
+    <span class="alert alert-error" th:if="${#fields.hasErrors('salary')}" th:errors="${jobAd.salary}"></span>
 
     <button type="submit" class="bottone">Inserisci</button>
   </form>
