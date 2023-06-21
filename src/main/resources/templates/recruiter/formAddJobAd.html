@@ -19,7 +19,7 @@
     <span class="alert alert-error" th:if="${#fields.hasErrors('title')}" th:errors="${jobAd.title}"></span>
 
     <label for="descrizione">Descrizione: </label>
-    <input id="descrizione" required type="text" th:field="${jobAd.description}" maxlength="255"/>
+    <input id="descrizione" required type="text" placeholder="max 1500 caratteri..." th:field="${jobAd.description}" maxlength="1500"/>
     <span class="alert alert-error" th:if="${#fields.hasErrors('description')}" th:errors="${jobAd.description}"></span>
 
     <label for="field">Settore: </label>

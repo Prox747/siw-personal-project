@@ -8,44 +8,34 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<div id="main">
+<div class="container">
 
     <!-- se l'utente non ha un'immagine profilo -->
-    <div th:if="${userIsApplicant and currentUser.imageFileName == null}">
-        <a href="/applicant/profile">Completa il tuo profilo aggiungendo una foto per poterti candidare</a>
+    <div    th:if="${userIsApplicant and currentUser.imageFileName == null}"
+            th:insert="fragments/bootstrap_fragment :: alertBox('Completa il tuo profilo aggiungendo una foto per poterti candidare', 'warning', 'true')">
     </div>
+
 
     <!-- DA LEVARE -->
     <p style="color:red; font-size:2.4rem">DEVO AGGIUNGERE FILTRAGGIO E MODIFICA DEGLI ANNUNCI, FORSE ENTITA' CV</p>
 
-    <!-- ANNUNCI DELL'AZIENDA, LEVALI DA QUI, METTILI IN PROFILO AZIENDA -->
-    <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
-    <div id="company-jobAds" th:if="${userIsRecruiter}">
-        <h1>I miei annunci</h1>
-        <div th:if="${currentUser.company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
-        <div th:unless="${currentUser.company.jobAds.isEmpty()}" id="jobAds-container">
-            <div th:each="jobAd : ${currentUser.company.jobAds}">
-                <h2 th:text="${jobAd.title}">Titolo</h2>
-                <p th:text="${jobAd.salary} + '€'">paga</p>
-                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-                <p th:text="${jobAd.description}">Descrizione</p>
-                <p th:text="${jobAd.field}">Settore</p>
-                <p th:text="${jobAd.requirements}">Requisiti</p>
-                <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
-                <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
-                <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
-            </div>
-        </div>
+
+
+    <!-- AVVISO PER IL CANDIDATO -->
+    <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}"
+         th:insert="fragments/bootstrap_fragment :: alertBox('Controlla le tue candidature nella pagina del profilo', 'info', 'true')">
     </div>
 
-    <!-- AVVISO PER L'UTENTE -->
-    <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}">
-        <span>Controlla le tue candidature nella pagina del </span><a href="/applicant/profile">profilo</a>
+    <!-- AVVISO PER IL RECLUTATORE -->
+    <div th:if="${userIsRecruiter}"
+         th:insert="fragments/bootstrap_fragment :: alertBox('Controlla le candidature per i tuoi annunci nella pagina del profilo', 'info', 'true')">
     </div>
 
     <!-- ANNUNCI PIU' POPOLARI -->
     <div>
         <h1>Annunci più popolari</h1>
+        <p style="color:red; font-size:2.4rem">AGGIUNGI "text-break" a descrizione così se è troppo lunga wrappa</p>
+
         <div th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div th:unless="${mostPopularJobAds.isEmpty()}">
 

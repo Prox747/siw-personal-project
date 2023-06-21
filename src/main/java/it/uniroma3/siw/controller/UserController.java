@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.model.Recruiter;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.util.ModelPreparationUtil;
@@ -19,11 +20,18 @@ public class UserController {
     ModelPreparationUtil modelPreparationUtil;
 
     //lo user deve essere registrato o admin per accedere
-    @GetMapping("/applicant/profile")
-    public String getProfilePage(Model model) {
-        model.addAttribute("user", userService.getCurrentUser());
-        model.addAttribute("jobAppls", userService.getCurrentUser().getJobApplications());
-        return "applicant/applicantProfile.html";
+    @GetMapping("/profile")
+    public String getProfilePageApplicant(Model model) {
+        User currentUser = userService.getCurrentUser();
+        if(currentUser instanceof Recruiter) {
+            model.addAttribute("recruiter", currentUser);
+            model.addAttribute("company", ((Recruiter)currentUser).getCompany());
+            return "recruiter/recruiterProfile.html";
+        } else {
+            model.addAttribute("user", userService.getCurrentUser());
+            model.addAttribute("jobAppls", userService.getCurrentUser().getJobApplications());
+            return "applicant/applicantProfile.html";
+        }
     }
 
     @PostMapping("/applicant/addedPic")
@@ -33,10 +41,10 @@ public class UserController {
             userService.addImageToUser(user, multipartFile);
         } catch (IOException e) {
             model.addAttribute("erroreUpload", "Errore durante l'upload dell'immagine");
-            return getProfilePage(model);
+            return "redirect:/profile";
         }
         userService.saveUser(user);
 
-        return getProfilePage(model);
+        return "redirect:/profile";
     }
 }

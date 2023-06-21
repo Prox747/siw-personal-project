@@ -25,6 +25,7 @@ public class JobAd {
     @NotBlank
     private String title;
     @NotBlank
+    @Column(length = 1500)
     private String description;
     @NotBlank
     private String field;
