@@ -84,4 +84,9 @@ public class UserService {
     public boolean isUsernameAvailable(String username) {
         return !userRepository.existsByUsername(username);
     }
+
+    public User getUserById(Long id) {
+        Optional<User> result = userRepository.findById(id);
+        return result.orElse(null);
+    }
 }

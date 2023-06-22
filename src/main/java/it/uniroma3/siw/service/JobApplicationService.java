@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import it.uniroma3.siw.model.Company;
 import it.uniroma3.siw.model.JobAd;
 import it.uniroma3.siw.model.JobApplication;
 import it.uniroma3.siw.model.User;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -45,6 +48,7 @@ public class JobApplicationService {
     @Transactional
     public void applicateToJobAd(JobAd jobAd, User applicant) {
         JobApplication jobApplication = new JobApplication();
+        jobApplication.setApplicationDate(LocalDateTime.now());
         jobApplication.setJobAd(jobAd);
         jobApplication.setApplicant(applicant);
         jobApplication.setStatus(JobApplication.STATUS_PENDING);
@@ -56,5 +60,10 @@ public class JobApplicationService {
     @Transactional
     public Set<JobApplication> getApplicationsForJobAd(JobAd jobAd) {
         return this.jobApplicationRepository.findAllByJobAdIs(jobAd);
+    }
+
+    @Transactional
+    public List<JobApplication> getPendingJobApplicationsForCompany(Company company) {
+        return this.jobApplicationRepository.findAllByJobAd_CompanyAndStatusIs(company, JobApplication.STATUS_PENDING);
     }
 }

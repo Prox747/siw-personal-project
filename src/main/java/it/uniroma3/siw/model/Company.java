@@ -17,6 +17,7 @@ public class Company {
     // I cannot save it "name" because thymeleaf will give it the same name attribute as the one in User.java
     @NotBlank
     private String companyName;
+    @Column(length=1500)
     @NotBlank
     private String description;
     @NotBlank

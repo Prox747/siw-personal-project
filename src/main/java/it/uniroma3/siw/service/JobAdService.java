@@ -50,7 +50,8 @@ public class JobAdService {
 
         //per ogni jobAd trovata, al massimo 5, la aggiungo alla lista da ritornare
         for(int i = 0; i < Math.min(5, allJobAds.size()); i++) {
-            top5JobAds.add(allJobAds.get(i));
+            if(allJobAds.get(i).getJobApplications().size() > 0)
+                top5JobAds.add(allJobAds.get(i));
         }
 
         return top5JobAds;

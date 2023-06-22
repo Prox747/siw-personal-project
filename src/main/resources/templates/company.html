@@ -11,7 +11,7 @@
 
 <div class="company-card">
     <div class="company-logo">
-        <img th:if="${company.logoFileName}" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
+        <img th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
              alt="company_logo">
     </div>
     <div class="nome azienda" th:text="${company.companyName}">nome azienda</div>
@@ -28,14 +28,9 @@
         <div id="emptyList" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
         <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
             <div th:each="jobAd : ${company.jobAds}">
-                <h2 th:text="${jobAd.title}">Titolo</h2>
-                <p th:text="${jobAd.salary} + '€'">paga</p>
-                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}">dataPubblicazione</p>
-                <p th:text="${jobAd.description}">Descrizione</p>
-                <p th:text="${jobAd.field}">Settore</p>
-                <p th:text="${jobAd.requirements}">Requisiti</p>
-                <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
+                <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
             </div>
+            <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
         </div>
     </div>
 </div>

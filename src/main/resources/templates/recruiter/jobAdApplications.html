@@ -8,13 +8,8 @@
 <body>
   <div th:replace="fragments/header :: header"></div>
 
-  <div th:each="jobAd : ${currentUser.company.jobAds}">
-    <h2 th:text="${jobAd.title}">Titolo</h2>
-    <p th:text="${jobAd.salary} + '€'">paga</p>
-    <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-    <p th:text="${jobAd.description}">Descrizione</p>
-    <p th:text="${jobAd.field}">Settore</p>
-    <p th:text="${jobAd.requirements}">Requisiti</p>
+  <div id="jobAd">
+    <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
     <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
     <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
   </div>
@@ -22,28 +17,12 @@
   <div id="job-applications">
     <h1 id="job-appl-title">Candidature</h1>
     <div th:each="jobAppl : ${jobAppls}">
-      <div id="applicant-info">
-        <img th:src="@{'/upload/images/userProfilePics/' + ${jobAppl.applicant.imageFileName}}" alt="applicant_image"/>
-        <p th:text="${jobAppl.applicant.name} + ' ' + ${jobAppl.applicant.surname}">nome cognome</p>
-        <p th:text="${jobAppl.applicant.email}">email</p>
-      </div>
-      <div id="appl-status">
-        <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
-          <p>In attesa</p>
-          <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id} + '/applications/' + ${jobAppl.id} + '/accept'}">Accetta</a>
-          <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id} + '/applications/' + ${jobAppl.id} + '/reject'}">Rifiuta</a>
-        </div>
-        <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_ACCEPTED)}">
-          <p>Accettata</p>
-        </div>
-        <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_REJECTED)}">
-          <p>Rifiutata</p>
-        </div>
-    </div>
+        <div th:insert="fragments/bootstrap_fragment :: userAppl"></div>
     </div>
   </div>
   <div id="no-jobAppls" th:if="${jobAppls.isEmpty()}">
     Nessuno si è ancora candidato per questo annuncio
   </div>
+
 </body>
 </html>

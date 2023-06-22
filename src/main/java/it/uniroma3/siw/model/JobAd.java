@@ -24,8 +24,8 @@ public class JobAd {
     private Set<JobApplication> jobApplications;
     @NotBlank
     private String title;
+    @Column(length=1500)
     @NotBlank
-    @Column(length = 1500)
     private String description;
     @NotBlank
     private String field;

@@ -30,19 +30,21 @@
         <span>Telefono: </span><span th:text="${company.phoneNumber}">telefono</span>
     </div>
 
+    <!-- CANDIDATURE IN ATTESA -->
+    <h2>Candidature in attesa</h2>
+    <div th:each="jobAppl : ${pendingJobAppls}">
+        <div th:insert="fragments/bootstrap_fragment :: userAppl"></div>
+    </div>
+    <div th:if="${pendingJobAppls.isEmpty()}">Non c'è nessuna candidatura in attesa</div>
+
     <!-- ANNUNCI DELL'AZIENDA -->
-    <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
-    <div id="company-jobAds" th:if="${userIsRecruiter}">
+    <a th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
+    <div id="company-jobAds">
         <h1>I miei annunci</h1>
         <div th:if="${company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
         <div th:unless="${company.jobAds.isEmpty()}" id="jobAds-container">
             <div th:each="jobAd : ${company.jobAds}">
-                <h2 th:text="${jobAd.title}">Titolo</h2>
-                <p th:text="${jobAd.salary} + '€'">paga</p>
-                <p th:text="${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-                <p th:text="${jobAd.description}">Descrizione</p>
-                <p th:text="${jobAd.field}">Settore</p>
-                <p th:text="${jobAd.requirements}">Requisiti</p>
+                <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
                 <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
                 <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
                 <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>

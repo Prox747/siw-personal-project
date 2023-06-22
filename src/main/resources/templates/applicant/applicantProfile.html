@@ -11,14 +11,20 @@
 
 <div class="profile-card">
     <div class="profile-pic">
-        <form class="modifyProfilePic" th:action="@{/applicant/addedPic}" method="post" enctype="multipart/form-data">
+        <h1>Profilo</h1>
+
+        <!-- solo se  siamo noi possiamo modificare l'immagine -->
+        <form th:if="${currentUser.id == user.id}" class="modifyProfilePic" th:action="@{/applicant/addedPic}" method="post" enctype="multipart/form-data">
             <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
             <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
         </form>
+
         <img th:unless="${user.imageFileName}" src="/upload/images/userProfilePics/default_pic.jpg" alt="profile pic">
         <img th:if="${user.imageFileName}" th:src="@{'/upload/images/userProfilePics/' + ${user.imageFileName}}"
              alt="profile_pic">
     </div>
+
+    <!-- INFO -->
     <div class="username" th:text="${user.username}">username</div>
     <div class="user-info">
         <span>Nome: </span><span th:text="${user.name}">nome</span>
@@ -26,28 +32,11 @@
         <span>Email: </span><span th:text="${user.email}">email</span>
     </div>
 
+    <!-- CANDIDATURE -->
     <div id="job-applications">
         <h1 id="job-appl-title">Candidature</h1>
         <div th:each="jobAppl : ${jobAppls}">
-            <div id="jobad-info">
-                <h2 th:text="${jobAppl.jobAd.title}">Titolo</h2>
-                <p th:text="${jobAppl.jobAd.salary} + '€'">paga</p>
-                <p th:text="${#temporals.format(jobAppl.jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-                <p th:text="${jobAppl.jobAd.description}">Descrizione</p>
-                <p th:text="${jobAppl.jobAd.field}">Settore</p>
-                <p th:text="${jobAppl.jobAd.requirements}">Requisiti</p>
-            </div>
-            <div id="appl-status">
-                <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
-                    <p>In attesa</p>
-                </div>
-                <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_ACCEPTED)}">
-                    <p>Accettata</p>
-                </div>
-                <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_REJECTED)}">
-                    <p>Rifiutata</p>
-                </div>
-            </div>
+            <div th:replace="fragments/bootstrap_fragment :: jobAppl"></div>
         </div>
         <div th:if="${jobAppls.isEmpty()}">Non ti sei candidato per nessun annuncio</div>
     </div>
