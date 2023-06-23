@@ -21,8 +21,8 @@
     <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('title')}" th:errors="${jobAd.title}"></div>
 
     <label for="descrizione">Descrizione: </label>
-    <input id="descrizione" required type="text" placeholder="max 1500 caratteri..." th:field="${jobAd.description}"
-           maxlength="1500"/>
+    <textarea class="form-control" rows="3" id="descrizione" required placeholder="max 1500 caratteri..." th:field="${jobAd.description}"
+              maxlength="1500"></textarea>
     <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('description')}" th:errors="${jobAd.description}"></div>
 
     <label for="field">Settore: </label>

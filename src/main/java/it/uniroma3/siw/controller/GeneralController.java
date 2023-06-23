@@ -38,6 +38,6 @@ public class GeneralController {
 
     @ModelAttribute("myErrorClass")
     public String getMyErrorClassForBootstrap() {
-        return "alert alert-danger py-2 w-fit-content m-2";
+        return "alert alert-danger py-2 w-fit-content my-3";
     }
 }

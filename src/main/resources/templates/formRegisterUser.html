@@ -11,39 +11,62 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<h1>Registrazione</h1>
-<form class="container" th:action="@{/registerUser}" method="POST">
+<div class="container my-3 px-4">
 
-    <div th:if="${erroreUsername}" th:insert="fragments/bootstrap_fragment :: alertBox(${erroreUsername}, 'danger', 'false')"></div>
+    <div class="h1 w-fit-content mx-auto my-5">Registrazione</div>
+    <div class="row">
+        <form class="col col-md-6 col-lg-5 col-xl-4 mx-auto" th:action="@{/registerUser}" method="POST">
 
-    <label for="usernameForRegistration">Username</label>
-    <input id="usernameForRegistration" type="text" placeholder="username" required th:field="${credentials.username}"/><br>
-    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"></span><br>
-
-    <label for="password">Password</label>
-    <input id="password" type="password" placeholder="password" required th:field="${credentials.password}"/><br>
-    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"></span><br>
+            <div th:if="${erroreUsername}"
+                 th:insert="fragments/bootstrap_fragment :: alertBox(${erroreUsername}, 'danger', 'false')"></div>
 
 
-    <label for="nome">Nome</label>
-    <input id="nome" type="text" placeholder="name" required th:field="${user.name}"/><br>
-    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}"></span><br>
+            <div class="mb-3">
+                <label class="form-label" for="usernameForRegistration">Username</label>
+                <input class="form-control" id="usernameForRegistration" type="text" required
+                       th:field="${credentials.username}"/>
+                <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('credentials.username')}"
+                      th:errors="${credentials.username}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" id="password" type="password" required
+                       th:field="${credentials.password}"/>
+                <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('credentials.password')}"
+                      th:errors="${credentials.password}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="nome">Nome</label>
+                <input class="form-control" id="nome" type="text" required th:field="${user.name}"/>
+                <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('user.name')}"
+                      th:errors="${user.name}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="cognome">Cognome</label>
+                <input class="form-control" id="cognome" type="text" required
+                       th:field="${user.surname}"/>
+                <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('user.surname')}"
+                      th:errors="${user.surname}"></div>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" id="email" type="text" placeholder="name@example.com" required
+                       th:field="${user.email}"/>
+                <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('user.email')}"
+                      th:errors="${user.email}"></div>
+            </div>
 
 
-    <label for="cognome">Cognome</label>
-    <input id="cognome" type="text" placeholder="surname" required th:field="${user.surname}"/><br>
-    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}"></span><br>
+            <button class="btn btn-primary" type="submit">Registra</button>
 
-
-    <label for="email">Email</label>
-    <input id="email" type="text" placeholder="email" required th:field="${user.email}"/><br>
-    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}"></span><br>
-
-
-    <button class="bottone" type="submit">Registra</button>
-
-
-</form>
+        </form>
+    </div>
+</div>
 </body>
 
 </html>
