@@ -16,7 +16,7 @@
         <label for="password">Password: </label>
         <input id="password" required type="password" name="password"/><br>
 
-        <div class="alert alert-error" th:if="${param.error != null}">Username o password errati</div>
+        <div th:class="${myErrorClass}" th:if="${param.error != null}">Username o password errati</div>
 
         <button type="submit" class="bottone">Login</button><br>
 

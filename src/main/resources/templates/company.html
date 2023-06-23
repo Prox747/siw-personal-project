@@ -28,9 +28,9 @@
         <div id="emptyList" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
         <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
             <div th:each="jobAd : ${company.jobAds}">
-                <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
+                <div th:replace="fragments/bootstrap_fragment :: jobAd"></div>
+                <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
             </div>
-            <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
         </div>
     </div>
 </div>

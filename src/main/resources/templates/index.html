@@ -37,18 +37,14 @@
         <h1>Annunci più popolari</h1>
         <div th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div th:unless="${mostPopularJobAds.isEmpty()}">
-            <div th:each="jobAd : ${mostPopularJobAds}">
-                <div th:replace="fragments/bootstrap_fragment :: jobAd"></div>
-            </div>
+            <div th:each="jobAd : ${mostPopularJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"></div>
         </div>
 
         <!-- ANNUNCI PIU' RECENTI -->
         <h1>Annunci più recenti</h1>
         <div th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div th:unless="${newestJobAds.isEmpty()}">
-            <div th:each="jobAd : ${newestJobAds}">
-                <div th:replace="fragments/bootstrap_fragment :: jobAd"></div>
-            </div>
+            <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"></div>
         </div>
     </div>
 

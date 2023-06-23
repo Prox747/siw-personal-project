@@ -35,4 +35,9 @@ public class GeneralController {
     public boolean userIsRegistered() {
         return userService.getCurrentUser() != null;
     }
+
+    @ModelAttribute("myErrorClass")
+    public String getMyErrorClassForBootstrap() {
+        return "alert alert-danger py-2 w-fit-content m-2";
+    }
 }

@@ -94,11 +94,11 @@
     </div>
 </th:block>
 
-
 <!-- ANNUNCIO -->
 <th:block th:fragment="jobAd">
     <h2 th:text="${jobAd.title}">Titolo</h2>
-    <img class="rounded-circle" style="aspect-ratio: 1; height: 50px;" th:src="@{'/upload/images/companiesLogos/' + ${jobAd.company.logoFileName}}"
+    <img class="rounded-circle" style="aspect-ratio: 1; height: 50px;"
+         th:src="@{'/upload/images/companiesLogos/' + ${jobAd.company.logoFileName}}"
          alt="company_logo">
     <p th:text="${jobAd.jobApplications.size()} + ' CANDIDATURE'">num candidature</p>
     <p th:text="${jobAd.salary} + '€ al mese'">paga</p>
@@ -121,7 +121,8 @@
 <th:block th:fragment="jobAppl">
     <div id="jobad-info">
         <h2 th:text="${jobAppl.jobAd.title}">Titolo</h2>
-        <img class="rounded-circle" style="aspect-ratio: 1; height: 50px;" th:src="@{'/upload/images/companiesLogos/' + ${jobAppl.jobAd.company.logoFileName}}"
+        <img class="rounded-circle" style="aspect-ratio: 1; height: 50px;"
+             th:src="@{'/upload/images/companiesLogos/' + ${jobAppl.jobAd.company.logoFileName}}"
              alt="company_logo">
         <p th:text="${jobAppl.jobAd.company.companyName}">nome azienda</p>
         <p th:text="${jobAppl.jobAd.salary} + '€'">paga</p>
@@ -141,7 +142,8 @@
             <p>Rifiutata</p>
         </div>
     </div>
-    <div th:if="${userIsApplicant}"><a th:href="@{'/applicant/unrollFromAppl/' + ${jobAppl.id}}">Annulla candidatura</a></div>
+    <div th:if="${userIsApplicant}"><a th:href="@{'/applicant/unrollFromAppl/' + ${jobAppl.id}}">Annulla
+        candidatura</a></div>
 </th:block>
 
 
@@ -152,15 +154,18 @@
                                              th:href="@{'/recruiter/jobAds/' + ${jobAppl.jobAd.id}}"></a></span>
         <div th:text="'Richiesta il ' + ${#temporals.format(jobAppl.applicationDate,'dd-MM-yyyy HH:mm')}"></div>
         <div id="applicant-info">
-            <img style="aspect-ratio: 1; height: 50px;" th:src="@{'/upload/images/userProfilePics/' + ${jobAppl.applicant.imageFileName}}" alt="applicant_image">
+            <img style="aspect-ratio: 1; height: 50px;"
+                 th:src="@{'/upload/images/userProfilePics/' + ${jobAppl.applicant.imageFileName}}"
+                 alt="applicant_image">
             <span th:text="${jobAppl.applicant.name}">nome</span>
             <span th:text="${jobAppl.applicant.surname}">cognome</span>
             <div th:text="'Email: ' + ${jobAppl.applicant.email}">email</div>
             <div th:text="'Candidato ad altri ' + ${jobAppl.applicant.jobApplications.size() - 1} + ' annunci'"></div>
-            <a th:href="@{'/recruiter/showApplicantprofile/' + ${jobAppl.applicant.id}}" class="btn btn-primary">Vai al profilo</a>
+            <a th:href="@{'/recruiter/showApplicantprofile/' + ${jobAppl.applicant.id}}" class="btn btn-primary">Vai
+                al profilo</a>
         </div>
     </div>
-    <div  id="status">
+    <div id="status">
         <div th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
             <p>In attesa</p>
             <a th:href="@{'/recruiter/jobAds/' + ${jobAppl.jobAd.id} + '/applications/' + ${jobAppl.id} + '/accept'}">Accetta</a>

@@ -12,59 +12,59 @@
 <h1>Registra la tua azienda</h1>
 <form class="container" th:action="@{/registerCompany}" method="POST" enctype="multipart/form-data">
 
-    <div th:if="${erroreUsername}" th:text="${erroreUsername}"></div>
+    <div th:class="${myErrorClass}" th:if="${erroreUsername}" th:text="${erroreUsername}"></div>
 
     <h2>Reclutatore</h2>
     <label for="usernameForRegistration">Username</label>
     <input id="usernameForRegistration" type="text" placeholder="username" required th:field="${credentials.username}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('credentials.username')}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('credentials.username')}"
           th:errors="${credentials.username}"></span><br>
 
-    <div class="alert alert-error" th:if="${erroreUpload}" th:text="${erroreUpload}">errore</div>
+    <div th:class="${myErrorClass}" th:if="${erroreUpload}" th:text="${erroreUpload}">errore</div>
 
     <label for="password">Password</label>
     <input id="password" type="password" placeholder="password" required th:field="${credentials.password}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
           >
         </span><br>
 
     <label for="nome">Nome Reclutatore</label>
     <input id="nome" type="text" placeholder="nome" required th:field="${recruiter.name}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('recruiter.name')}" th:errors="${recruiter.name}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('recruiter.name')}" th:errors="${recruiter.name}"
           ></span><br>
 
 
     <label for="cognome">Cognome Reclutatore</label>
     <input id="cognome" type="text" placeholder="cognome" required th:field="${recruiter.surname}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('recruiter.surname')}" th:errors="${recruiter.surname}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('recruiter.surname')}" th:errors="${recruiter.surname}"
           ></span><br>
 
 
     <label for="email">Email Reclutatore</label>
     <input id="email" type="text" placeholder="email" required th:field="${recruiter.email}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('recruiter.email')}" th:errors="${recruiter.email}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('recruiter.email')}" th:errors="${recruiter.email}"
           ></span><br>
 
 
     <h2>Azienda</h2>
     <label for="nomeAzienda">Nome Azienda</label>
     <input id="nomeAzienda" type="text" placeholder="nome azienda" required th:field="${company.companyName}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('company.companyName')}" th:errors="${company.companyName}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('company.companyName')}" th:errors="${company.companyName}"
           ></span><br>
 
     <label for="description">Descrizione azienda</label>
     <input id="description" type="text" placeholder="descrizione" required th:field="${company.description}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('company.description')}" th:errors="${company.description}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('company.description')}" th:errors="${company.description}"
           ></span><br>
 
     <label for="location">Sede</label>
     <input id="location" type="text" placeholder="sede" required th:field="${company.location}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('company.location')}" th:errors="${company.location}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('company.location')}" th:errors="${company.location}"
           ></span><br>
 
     <label for="phoneNumber">Telefono azienda</label>
     <input id="phoneNumber" type="text" placeholder="telefono" required th:field="${company.phoneNumber}"/><br>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('company.phoneNumber')}" th:errors="${company.phoneNumber}"
+    <span th:class="${myErrorClass}" th:if="${#fields.hasErrors('company.phoneNumber')}" th:errors="${company.phoneNumber}"
           ></span><br>
 
     <label for="logo">Logo</label>

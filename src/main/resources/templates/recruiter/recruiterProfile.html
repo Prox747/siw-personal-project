@@ -32,9 +32,7 @@
 
     <!-- CANDIDATURE IN ATTESA -->
     <h2>Candidature in attesa</h2>
-    <div th:each="jobAppl : ${pendingJobAppls}">
-        <div th:insert="fragments/bootstrap_fragment :: userAppl"></div>
-    </div>
+    <div th:each="jobAppl : ${pendingJobAppls}" th:insert="fragments/bootstrap_fragment :: userAppl"></div>
     <div th:if="${pendingJobAppls.isEmpty()}">Non c'è nessuna candidatura in attesa</div>
 
     <!-- ANNUNCI DELL'AZIENDA -->

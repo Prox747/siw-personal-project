@@ -6,35 +6,38 @@
     <nothing th:replace="fragments/bootstrap_fragment :: bootstrap-dep"></nothing>
 </head>
 <body>
-  <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-  <h1>Inserisci un nuovo annuncio</h1>
-  <form class="container" th:action="@{/recruiter/addedJobAd}" method="POST" th:object="${jobAd}">
+<h1>Inserisci un nuovo annuncio</h1>
+<form class="container" th:action="@{/recruiter/addedJobAd}" method="POST" th:object="${jobAd}">
     <div id="error-container" th:if="${#fields.hasGlobalErrors()}">
-      <p class="alert alert-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        <div id="global-errors" th:each="err : ${#fields.globalErrors()}">
+            <div th:class="${myErrorClass}" th:text="${err}"></div>
+        </div>
     </div>
 
     <label for="titolo">Titolo:</label>
     <input id="titolo" required type="text" th:field="${jobAd.title}" maxlength="255"/>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('title')}" th:errors="${jobAd.title}"></span>
+    <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('title')}" th:errors="${jobAd.title}"></div>
 
     <label for="descrizione">Descrizione: </label>
-    <input id="descrizione" required type="text" placeholder="max 1500 caratteri..." th:field="${jobAd.description}" maxlength="1500"/>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('description')}" th:errors="${jobAd.description}"></span>
+    <input id="descrizione" required type="text" placeholder="max 1500 caratteri..." th:field="${jobAd.description}"
+           maxlength="1500"/>
+    <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('description')}" th:errors="${jobAd.description}"></div>
 
     <label for="field">Settore: </label>
     <input id="field" required type="text" th:field="${jobAd.field}" maxlength="255"/>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('field')}" th:errors="${jobAd.field}"></span>
+    <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('field')}" th:errors="${jobAd.field}"></div>
 
     <label for="requisiti">Requisiti: </label>
     <input id="requisiti" required type="text" th:field="${jobAd.requirements}" maxlength="255"/>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('requirements')}" th:errors="${jobAd.requirements}"></span>
+    <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('requirements')}" th:errors="${jobAd.requirements}"></div>
 
     <label for="paga">Paga (al mese): </label>
     <input id="paga" required type="number" th:field="${jobAd.salary}"/>
-    <span class="alert alert-error" th:if="${#fields.hasErrors('salary')}" th:errors="${jobAd.salary}"></span>
+    <div th:class="${myErrorClass}" th:if="${#fields.hasErrors('salary')}" th:errors="${jobAd.salary}"></div>
 
     <button type="submit" class="bottone">Inserisci</button>
-  </form>
+</form>
 </body>
 </html>
