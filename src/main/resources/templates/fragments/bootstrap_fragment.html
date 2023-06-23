@@ -123,6 +123,7 @@
         <h2 th:text="${jobAppl.jobAd.title}">Titolo</h2>
         <img class="rounded-circle" style="aspect-ratio: 1; height: 50px;" th:src="@{'/upload/images/companiesLogos/' + ${jobAppl.jobAd.company.logoFileName}}"
              alt="company_logo">
+        <p th:text="${jobAppl.jobAd.company.companyName}">nome azienda</p>
         <p th:text="${jobAppl.jobAd.salary} + '€'">paga</p>
         <p th:text="${#temporals.format(jobAppl.jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
         <p th:text="${jobAppl.jobAd.description}">Descrizione</p>
@@ -140,7 +141,9 @@
             <p>Rifiutata</p>
         </div>
     </div>
+    <div th:if="${userIsApplicant}"><a th:href="@{'/applicant/unrollFromAppl/' + ${jobAppl.id}}">Annulla candidatura</a></div>
 </th:block>
+
 
 <!-- UTENTE CANDIDATO PER ANNUNCIO -->
 <th:block th:fragment="userAppl">
@@ -153,7 +156,7 @@
             <span th:text="${jobAppl.applicant.name}">nome</span>
             <span th:text="${jobAppl.applicant.surname}">cognome</span>
             <div th:text="'Email: ' + ${jobAppl.applicant.email}">email</div>
-            <div th:text="'Candidato ad altri ' + ${jobAppl.applicant.jobApplications.size()} + ' annunci'"></div>
+            <div th:text="'Candidato ad altri ' + ${jobAppl.applicant.jobApplications.size() - 1} + ' annunci'"></div>
             <a th:href="@{'/recruiter/showApplicantprofile/' + ${jobAppl.applicant.id}}" class="btn btn-primary">Vai al profilo</a>
         </div>
     </div>

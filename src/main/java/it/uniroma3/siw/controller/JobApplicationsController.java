@@ -48,4 +48,10 @@ public class JobApplicationsController {
         jobApplicationService.applicateToJobAd(jobAdService.getJobAd(jobAdId), userService.getCurrentUser());
         return "redirect:/";
     }
+
+    @GetMapping("/applicant/unrollFromAppl/{jobApplId}")
+    public String unrollFromApplication(@PathVariable("jobApplId") Long jobApplId, Model model) {
+        jobApplicationService.unrollFromApplication(jobApplId);
+        return "redirect:/profile";
+    }
 }

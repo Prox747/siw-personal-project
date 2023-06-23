@@ -66,4 +66,12 @@ public class JobApplicationService {
     public List<JobApplication> getPendingJobApplicationsForCompany(Company company) {
         return this.jobApplicationRepository.findAllByJobAd_CompanyAndStatusIs(company, JobApplication.STATUS_PENDING);
     }
+
+    @Transactional
+    public void unrollFromApplication(Long jobApplId) {
+        JobApplication jobApplication = this.getJobApplication(jobApplId);
+        jobApplication.getApplicant().getJobApplications().remove(jobApplication);
+        jobApplication.getJobAd().getJobApplications().remove(jobApplication);
+        this.jobApplicationRepository.delete(jobApplication);
+    }
 }
