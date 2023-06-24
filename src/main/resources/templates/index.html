@@ -15,11 +15,6 @@
             th:insert="fragments/bootstrap_fragment :: alertBox('Completa il tuo profilo aggiungendo una foto per poterti candidare', 'warning', 'true')">
     </div>
 
-
-    <!-- DA LEVARE -->
-    <p style="color:red; font-size:2.4rem">DEVO AGGIUNGERE FILTRAGGIO E MODIFICA DEGLI ANNUNCI, FORSE ENTITA' CV</p>
-
-
     <!-- AVVISO PER IL CANDIDATO -->
     <div th:if="${userIsApplicant and !currentUser.jobApplications.isEmpty()}"
          th:insert="fragments/bootstrap_fragment :: alertBox('Controlla le tue candidature nella pagina del profilo', 'info', 'true')">
@@ -30,24 +25,53 @@
          th:insert="fragments/bootstrap_fragment :: alertBox('Controlla le candidature per i tuoi annunci nella pagina del profilo', 'info', 'true')">
     </div>
 
+    <!-- SLIDER PER IL SALARIO -->
+    <div th:unless="${mostPopularJobAds.isEmpty() and newestJobAds.isEmpty()}" class="my-3 px-2 row">
+        <div class="col-lg-6 py-2 bg-primary-subtle border rounded border-primary">
+            <label id="salaryLabel" for="sliderSalario" class="form-label">Cerca per salario minimo</label>
+            <div class="range">
+                <input type="range" class="form-range" min="500" max="15000" step="500" id="sliderSalario"/>
+                <span class="thumb">
+                <span class="thumb-value"></span>
+            </span>
+            </div>
+        </div>
+    </div>
+
     <!-- ANNUNCI -->
     <div>
 
         <!-- ANNUNCI PIU' POPOLARI -->
-        <h1>Annunci più popolari</h1>
-        <div th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
-        <div th:unless="${mostPopularJobAds.isEmpty()}">
-            <div th:each="jobAd : ${mostPopularJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"></div>
+        <div class="h1 text-gradient">Annunci più popolari</div>
+
+        <!-- avviso quando non trovo nulla -->
+        <div id="noPopularJobAdsFound" style="display: none" th:insert="fragments/bootstrap_fragment ::
+                alertBox('Nessun annuncio soddisfa il salario minimo', 'warning', 'false')">
         </div>
 
+        <div class="h2" th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
+        <div id="mostPopularJobAds" th:unless="${mostPopularJobAds.isEmpty()}">
+            <div th:each="jobAd : ${mostPopularJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd" th:data-salary="${jobAd.salary}"></div>
+        </div>
+
+
+
         <!-- ANNUNCI PIU' RECENTI -->
-        <h1>Annunci più recenti</h1>
-        <div th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
-        <div th:unless="${newestJobAds.isEmpty()}">
-            <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"></div>
+        <div class="h1 text-gradient">Annunci più recenti</div>
+
+        <!-- avviso quando non trovo nulla -->
+        <div id="noNewestJobAdsFound" style="display: none" th:insert="fragments/bootstrap_fragment ::
+                alertBox('Nessun annuncio soddisfa il salario minimo', 'warning', 'false')">
+        </div>
+
+        <div class="h2" th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
+        <div id="newestJobAds" th:unless="${newestJobAds.isEmpty()}">
+            <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd" th:data-salary="${jobAd.salary}"></div>
         </div>
     </div>
 
+    <!-- PER LA RICERCA -->
+    <script src="/js/indexSearch.js"></script>
 </div>
 </body>
 </html>

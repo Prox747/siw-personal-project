@@ -10,7 +10,7 @@
 
   <div id="jobAd">
     <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
-    <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
+    <a th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
     <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
   </div>
 

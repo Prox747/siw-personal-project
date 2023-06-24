@@ -1,39 +1,68 @@
-//So che usare il DB era MOLTO più veloce ma è difficile perchè dovrei
-//chiamare una funzione su spring boot che mi ritorna una lista di film
-//poi dovrei, prima di passarli a js, convertirli in JSON, e poi
-//ricostruire gli oggetti in hmtl, è molto codice
-function filterMoviesBasedOnSearchText() {
-    const input = document.getElementById("movieSearchInput");
-    const searchText = input.value.toUpperCase();
-    const movies = document.getElementById("movie-carousel").children;
-    for (let i = 0; i < movies.length; i++) {
-        if(movies[i].className === "ignoreInJs") continue; //skip all elements with class "ignoreInJs"
-        
-        const title = movies[i].getAttribute("data-title");
+// js per la ricerca per salario minimo
 
-        if (title.toUpperCase().includes(searchText)) {
-            movies[i].style.display = "";
+let slider = document.getElementById('sliderSalario');
+let salaryLabel = document.getElementById('salaryLabel');
+
+let popularJobAdsElement = document.getElementById('mostPopularJobAds');
+let newestJobAdsElement = document.getElementById('newestJobAds');
+
+slider.addEventListener('input', function() {
+    salaryLabel.innerText = 'Cerca per salario minimo: ' + slider.value;
+
+    let minSalary = slider.value;
+
+    // filtro gli annunci per salario minimo, lo faccio in due loop per poter capire
+    // quando non ci sono annunci filtrati in una delle due categorie
+
+    if(popularJobAdsElement !== null) {
+        let popularJobAds = document.getElementById('mostPopularJobAds').children;
+        let filteredPopularJobAdNumber = popularJobAds.length;
+        for (let i = 0; i < popularJobAds.length; i++) {
+
+            let salary = popularJobAds[i].getAttribute('data-salary');
+
+            salary = parseFloat(salary);
+            if (salary < minSalary) {
+                popularJobAds[i].style.display = 'none';
+                filteredPopularJobAdNumber--;
+            } else {
+                popularJobAds[i].style.display = 'block';
+                filteredPopularJobAdNumber++;
+            }
+        }
+
+        // se non ci sono annunci filtrati, mostro il messaggio di nessun annuncio trovato
+        if(filteredPopularJobAdNumber === 0) {
+            document.getElementById('noPopularJobAdsFound').style.display = 'block';
         } else {
-            movies[i].style.display = "none";
+            document.getElementById('noPopularJobAdsFound').style.display = 'none';
         }
     }
-}
 
-function filterArtistsBasedOnSearchText() {
-    const input = document.getElementById("artistSearchInput");
-    const searchText = input.value.toUpperCase();
-    const artists = document.getElementById("artist-carousel").children;
-    for (let i = 0; i < artists.length; i++) {
-        if(artists[i].className === "ignoreInJs") continue; //skip all elements with class "ignoreInJs"
+    if(newestJobAdsElement !== null) {
+        let newestJobAds = document.getElementById('newestJobAds').children;
+        let filteredNewestJobAdNumber = newestJobAds.length;
 
-        const name = artists[i].getAttribute("data-name");
-        const surname = artists[i].getAttribute("data-surname");
-        const nameAndSurname = name + ' ' + surname;
+        for (let i = 0; i < newestJobAds.length; i++) {
 
-        if (nameAndSurname.toUpperCase().includes(searchText)) {
-            artists[i].style.display = "";
+            let salary = newestJobAds[i].getAttribute('data-salary');
+
+            salary = parseFloat(salary);
+            if (salary < minSalary) {
+                newestJobAds[i].style.display = 'none';
+                filteredNewestJobAdNumber--;
+            } else {
+                newestJobAds[i].style.display = 'block';
+                filteredNewestJobAdNumber++;
+            }
+        }
+        // se non ci sono annunci filtrati, mostro il messaggio di nessun annuncio trovato
+        if(filteredNewestJobAdNumber === 0) {
+            document.getElementById('noNewestJobAdsFound').style.display = 'block';
         } else {
-            artists[i].style.display = "none";
+            document.getElementById('noNewestJobAdsFound').style.display = 'none';
         }
     }
-}
+
+});
+
