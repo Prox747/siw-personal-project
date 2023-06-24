@@ -58,9 +58,11 @@
     <div th:if="${pendingJobAppls.isEmpty()}">Non c'è nessuna candidatura in attesa</div>
 
     <!-- ANNUNCI DELL'AZIENDA -->
-    <a th:href="@{'/recruiter/newJobAd'}">+ Pubblica annuncio</a>
     <div id="company-jobAds">
-        <h1>I miei annunci</h1>
+        <div class="d-flex flex-wrap">
+            <div class="h1 text-gradient">I miei annunci</div>
+            <a class="btn btn-primary" th:href="@{'/recruiter/newJobAd'}">Pubblica annuncio</a>
+        </div>
         <div th:if="${company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
         <div th:unless="${company.jobAds.isEmpty()}" id="jobAds-container">
             <div th:each="jobAd : ${company.jobAds}">

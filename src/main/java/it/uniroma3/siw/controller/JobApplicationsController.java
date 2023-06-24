@@ -35,6 +35,7 @@ public class JobApplicationsController {
         jobApplicationService.acceptApplication(applicationId);
         Recruiter recruiter = ((Recruiter)userService.getCurrentUser());
         recruiter.setAcceptedApplications(recruiter.getAcceptedApplications() + 1);
+        userService.saveUser(recruiter);
         return "redirect:/recruiter/jobAds/{jobAdId}";
     }
 
@@ -45,6 +46,7 @@ public class JobApplicationsController {
         jobApplicationService.rejectApplication(applicationId);
         Recruiter recruiter = ((Recruiter)userService.getCurrentUser());
         recruiter.setRejectedApplications(recruiter.getRejectedApplications() + 1);
+        userService.saveUser(recruiter);
         return "redirect:/recruiter/jobAds/{jobAdId}";
     }
 
