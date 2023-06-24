@@ -72,4 +72,26 @@ public class JobAdController {
                 jobAdService.findLast15JobAds(),
                 jobAdService.find5MostPopularJobAds());
     }
+
+    @GetMapping("/recruiter/editJobAd/{id}")
+    public String showEditJobAdForm(@PathVariable("id") Long jobAdId, Model model) {
+        JobAd jobAd = jobAdService.getJobAd(jobAdId);
+        model.addAttribute("jobAd", jobAd);
+        return "recruiter/formEditJobAd";
+    }
+
+    @PostMapping("/recruiter/editedJobAd")
+    public String editJobAd(@Valid @ModelAttribute("jobAd") JobAd editedJobAd, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            JobAd oldJobAd = jobAdService.getJobAd(editedJobAd.getId());
+            jobAdService.updateJobAd(oldJobAd, editedJobAd);
+
+            //company ha il cascade all
+            companyService.saveCompany(oldJobAd.getCompany());
+            return "redirect:/profile";
+        } else {
+            return "recruiter/formEditJobAd";
+        }
+    }
+
 }

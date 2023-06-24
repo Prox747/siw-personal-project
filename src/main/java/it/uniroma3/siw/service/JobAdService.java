@@ -56,4 +56,12 @@ public class JobAdService {
 
         return top5JobAds;
     }
+
+    public void updateJobAd(JobAd oldJobAd, JobAd editedJobAd) {
+        oldJobAd.setDescription(editedJobAd.getDescription());
+        oldJobAd.setRequirements(editedJobAd.getRequirements());
+        oldJobAd.setSalary(editedJobAd.getSalary());
+        oldJobAd.setTitle(editedJobAd.getTitle());
+        oldJobAd.setField(editedJobAd.getField());
+    }
 }

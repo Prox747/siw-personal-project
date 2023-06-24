@@ -44,7 +44,7 @@
             <div th:each="jobAd : ${company.jobAds}">
                 <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
                 <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
-                <a th:href="@{'/recruiter/editJobAd' + ${jobAd.id}}">Modifica</a>
+                <a th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
                 <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
             </div>
         </div>

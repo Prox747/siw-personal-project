@@ -13,13 +13,16 @@
     <div class="row">
         <div class="col col-md-7 col-lg-5 col-xl-5 px-lg-4 mx-auto pb-3
                     border rounded-4 border-3 border-primary-subtle bg-light shadow">
-            <div class="text-gradient h2 w-fit-content my-4 py-1">Inserisci un nuovo annuncio</div>
-            <form th:action="@{/recruiter/addedJobAd}" method="POST" th:object="${jobAd}">
+            <div class="text-gradient h2 w-fit-content my-4 py-1">Modifica l'annuncio</div>
+            <form th:action="@{/recruiter/editedJobAd}" method="POST" th:object="${jobAd}">
                 <div id="error-container" th:if="${#fields.hasGlobalErrors()}">
                     <div id="global-errors" th:each="err : ${#fields.globalErrors()}">
                         <div th:class="${myErrorClass}" th:text="${err}"></div>
                     </div>
                 </div>
+
+                <!-- perchè senno non abbiamo l'id al ritorno -->
+                <input class="d-none" th:field="${jobAd.id}"/>
 
                 <div class="mb-3">
                     <label class="form-label" for="titolo">Titolo:</label>
@@ -63,7 +66,7 @@
                          th:errors="${jobAd.salary}"></div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Inserisci</button>
+                <button type="submit" class="btn btn-primary">Modifica</button>
             </form>
         </div>
     </div>
