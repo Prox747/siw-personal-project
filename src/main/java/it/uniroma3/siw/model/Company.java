@@ -24,7 +24,7 @@ public class Company {
     private String location;
     private String logoFileName;
 
-    @Pattern(regexp="^[0-9]{10}$", message="Numero di telefono non valido")
+    @Pattern(regexp="^[0-9]{10}$", message="Formato non valido")
     private String phoneNumber;
     @OneToMany(mappedBy="company", cascade = CascadeType.ALL)
     private Set<JobAd> jobAds;

@@ -54,7 +54,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm (Model model) {
+    public String showLoginForm(Model model) {
         return "formLogin.html";
     }
 
@@ -84,8 +84,10 @@ public class AuthenticationController {
             && userService.isUsernameAvailable(credentials.getUsername())) {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials, Credentials.DEFAULT_ROLE);
-            model.addAttribute("user", user);
-            return "registrationSuccessful";
+
+            //ritorniamo al login con il messaggio di successo
+            model.addAttribute("registrationSuccessful", "Registrazione avvenuta con successo");
+            return "formLogin";
         }
         if( !userService.isUsernameAvailable(credentials.getUsername()) )
             model.addAttribute("erroreUsername", "Username già in uso");
@@ -123,8 +125,10 @@ public class AuthenticationController {
             recruiter.setCompany(company);
             credentials.setUser(recruiter);
             credentialsService.saveCredentials(credentials, Credentials.RECRUITER_ROLE);
-            model.addAttribute("recruiter", recruiter);
-            return "registrationCompanySuccessful";
+
+            //ritorniamo al login con il messaggio di successo
+            model.addAttribute("registrationSuccessful", "Registrazione avvenuta con successo");
+            return "formLogin";
         }
         //per validare lo user dovrei creare un oggetto wrapper per user e credentials
         //per poi poter rilevare gli errori nei global errors della form

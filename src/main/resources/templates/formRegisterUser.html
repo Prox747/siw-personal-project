@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>
-        RegisterFrom
-    </title>
+    <title>RegisterFormUser</title>
     <nothing th:replace="fragments/bootstrap_fragment :: bootstrap-dep"></nothing>
 </head>
 
@@ -14,8 +12,9 @@
 <div class="container my-3 px-4">
 
     <div class="row">
-        <div class="col col-md-7 col-lg-5 col-xl-5 px-lg-4 mx-auto pb-3 border rounded-4 border-4 border-primary-subtle bg-light">
-            <div class="h1 w-fit-content my-4">Registrazione</div>
+        <div class="col col-md-7 col-lg-5 col-xl-5 px-lg-4 mx-auto pb-3
+                    border rounded-4 border-3 border-primary-subtle bg-light shadow">
+            <div class="text-gradient h1 w-fit-content my-4 py-1">Registrazione</div>
             <form th:action="@{/registerUser}" method="POST">
 
                 <div th:if="${erroreUsername}"

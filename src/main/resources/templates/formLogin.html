@@ -8,22 +8,37 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
 
-    <h1>Login</h1>
-    <form class="container" th:action="@{/login}" method="POST">
-        <label for="usernameInput">Username: </label>
-        <input id="usernameInput" required type="text" name="username"/><br>
+    <div class="container my-3 px-4">
+        <div class="row">
+            <div class="col col-md-7 col-lg-5 col-xl-5 px-lg-4 mx-auto pb-3
+                    border rounded-4 border-3 border-primary-subtle bg-light shadow">
+                <div class="text-gradient h1 w-fit-content my-4 py-1">Login</div>
 
-        <label for="password">Password: </label>
-        <input id="password" required type="password" name="password"/><br>
+                <div th:if="${registrationSuccessful}" th:insert="fragments/bootstrap_fragment :: alertBox(${registrationSuccessful}, 'success', 'false')"></div>
 
-        <div th:class="${myErrorClass}" th:if="${param.error != null}">Username o password errati</div>
+                <form th:action="@{/login}" method="POST">
 
-        <button type="submit" class="bottone">Login</button><br>
+                    <div class="mb-3">
+                        <label class="form-label" for="usernameInput">Username: </label>
+                        <input class="form-control" id="usernameInput" required type="text" name="username"/>
+                    </div>
 
-        <div id="register-row">
-            <a class="register" th:href="@{/registerUser}">Registrati</a>
-            <a class="register" th:href="@{/registerCompany}">Registra azienda</a>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password: </label>
+                        <input class="form-control" id="password" required type="password" name="password"/>
+                    </div>
+
+                    <div th:class="${myErrorClass}" th:if="${param.error != null}">Username o password errati</div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Login</button>
+
+                    <div id="register-row" class="mt-4 d-flex justify-content-between">
+                        <a class="register" th:href="@{/registerUser}">Registrati</a>
+                        <a class="register" th:href="@{/registerCompany}">Registra azienda</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 </body>
 </html>
