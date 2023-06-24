@@ -9,30 +9,52 @@
 
 <div th:replace="fragments/header :: header"></div>
 
-<div class="company-card">
+<div class="container">
 
+    <div class="d-flex flex-wrap justify-content-center">
+        <div class="my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center w-fit-content shadow">
+            <div class="h2 text-gradient my-1">Lavora per:</div>
+            <div class="h1 text-gradient my-2" th:text="${company.companyName}">nome azienda</div>
+            <img class="rounded-circle" th:if="${company.logoFileName}"
+                 th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
+                 style="aspect-ratio:1; height:15rem" alt="company_logo">
+            <form class="d-none" action="/recruiter/addedPic" method="post"
+                  enctype="multipart/form-data">
+                <label class="form-label" id="modifyProfilePicLabel" for="uploadImage">Modifica logo</label>
+                <input class="form-control" id="uploadImage" name="image" type="file" accept="image/*"
+                       onchange="form.submit()">
+            </form>
+            <button type="button" id="uploadButton" class="btn btn-primary my-3">Cambia logo</button>
+            <!-- per fare in modo che quando clicko il bottone per caricare l'immagine si apra la finestra di dialogo -->
+            <script>
+                document.getElementById("uploadButton").onclick = function () {
+                    document.getElementById("uploadImage").click();
+                };
+            </script>
+        </div>
 
-
-    <div class="company-logo">
-        <form class="modifyProfilePic" th:action="@{/recruiter/addedPic}" method="post"
-              enctype="multipart/form-data">
-            <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
-            <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
-        </form>
-        <img th:if="${company.logoFileName}" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
-             alt="company_logo">
-    </div>
-    <div class="nome azienda" th:text="${company.companyName}">nome azienda</div>
-    <div class="company-desc" th:text="${company.description}">descrizione</div>
-
-    <div id="contacts">
-        <span>Sede: </span><span th:text="${company.location}">sede</span>
-        <span>Telefono: </span><span th:text="${company.phoneNumber}">telefono</span>
+        <div class="my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center w-fit-content shadow">
+            <div class="h1 text-gradient my-3">Le tue info:</div>
+            <strong class="h3">Nome</strong>
+            <div class="h3 mb-3" th:text="${recruiter.name}">nome recruiter</div>
+            <strong class="h3">Cognome</strong>
+            <div class="h3 mb-3" th:text="${recruiter.surname}">cognome recruiter</div>
+            <strong class="h3">Email</strong>
+            <div class="h3 mb-3" th:text="${recruiter.email}">email recruiter</div>
+            <strong class="h3">Candidature accettate</strong>
+            <div class="h3 mb-3" th:text="${recruiter.acceptedApplications}">Candidature accettate</div>
+            <strong class="h3">Candidature rifiutate</strong>
+            <div class="h3 mb-3" th:text="${recruiter.rejectedApplications}">Candidature rifiutate</div>
+        </div>
     </div>
 
     <!-- CANDIDATURE IN ATTESA -->
     <h2>Candidature in attesa</h2>
-    <div th:each="jobAppl : ${pendingJobAppls}" th:insert="fragments/bootstrap_fragment :: userAppl"></div>
+    <div class="d-flex overflow-auto px-3" th:unless="${pendingJobAppls.isEmpty()}">
+        <div th:each="jobAppl : ${pendingJobAppls}" th:insert="fragments/bootstrap_fragment :: userAppl"></div>
+    </div>
     <div th:if="${pendingJobAppls.isEmpty()}">Non c'è nessuna candidatura in attesa</div>
 
     <!-- ANNUNCI DELL'AZIENDA -->

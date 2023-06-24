@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.JobAd;
+import it.uniroma3.siw.model.Recruiter;
 import it.uniroma3.siw.service.JobAdService;
 import it.uniroma3.siw.service.JobApplicationService;
 import it.uniroma3.siw.service.UserService;
@@ -32,6 +33,8 @@ public class JobApplicationsController {
                                     @PathVariable("applicationId") Long applicationId,
                                     Model model) {
         jobApplicationService.acceptApplication(applicationId);
+        Recruiter recruiter = ((Recruiter)userService.getCurrentUser());
+        recruiter.setAcceptedApplications(recruiter.getAcceptedApplications() + 1);
         return "redirect:/recruiter/jobAds/{jobAdId}";
     }
 
@@ -40,6 +43,8 @@ public class JobApplicationsController {
                                     @PathVariable("applicationId") Long applicationId,
                                     Model model) {
         jobApplicationService.rejectApplication(applicationId);
+        Recruiter recruiter = ((Recruiter)userService.getCurrentUser());
+        recruiter.setRejectedApplications(recruiter.getRejectedApplications() + 1);
         return "redirect:/recruiter/jobAds/{jobAdId}";
     }
 
