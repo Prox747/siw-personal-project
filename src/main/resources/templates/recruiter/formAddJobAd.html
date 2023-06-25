@@ -21,6 +21,10 @@
                     </div>
                 </div>
 
+                <div class="mb-3" th:if="${erroreDescrizione}">
+                    <div th:insert="fragments/bootstrap_fragment :: alertBox(${erroreDescrizione}, 'warning', 'false')"></div>
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label" for="titolo">Titolo:</label>
                     <input class="form-control" id="titolo" required type="text" th:field="${jobAd.title}"

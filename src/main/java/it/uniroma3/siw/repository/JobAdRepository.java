@@ -10,6 +10,8 @@ import java.util.Set;
 public interface JobAdRepository extends CrudRepository<JobAd, Long> {
     Set<JobAd> findTop15ByOrderByIdDesc();
 
+    boolean existsByDescription(String description);
+
 
     //IO CI HO PROVATO, MA NON FUNZIONA, LO FACCIO DAL CONTROLLER
 //    // prendi le jobads dalla tabella che hanno id uguale a quelli trovati dalla query dopo

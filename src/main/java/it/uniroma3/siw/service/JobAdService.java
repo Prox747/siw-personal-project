@@ -64,4 +64,9 @@ public class JobAdService {
         oldJobAd.setTitle(editedJobAd.getTitle());
         oldJobAd.setField(editedJobAd.getField());
     }
+
+    @Transactional
+    public boolean existsJobAdByDescription(String description) {
+        return this.jobAdRepository.existsByDescription(description);
+    }
 }

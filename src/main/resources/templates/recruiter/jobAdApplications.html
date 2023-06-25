@@ -12,7 +12,7 @@
         <!-- ANNUNCIO -->
       <div id="jobAd">
           <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
-          <a class="btn bg-orange text-light hover-darker" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
+          <a class="btn btn-warning text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
           <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
       </div>
 
