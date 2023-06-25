@@ -43,11 +43,10 @@ public class JobAdController {
             jobAd.setCompany(company);
             jobAd.setPublicationDate(LocalDateTime.now());
             company.getJobAds().add(jobAd);
+
             //company ha il cascade all
             companyService.saveCompany(company);
-            return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model,
-                    jobAdService.findLast15JobAds(),
-                    jobAdService.find5MostPopularJobAds());
+            return "redirect:/profile";
         } else {
             return "recruiter/formAddJobAd";
         }
@@ -68,9 +67,7 @@ public class JobAdController {
 
         jobAdService.deleteJobAd(jobAdToDelete);
         companyService.saveCompany(company);
-        return modelPreparationUtil.prepareModelForIndexTemplate("index.html", model,
-                jobAdService.findLast15JobAds(),
-                jobAdService.find5MostPopularJobAds());
+        return "redirect:/profile";
     }
 
     @GetMapping("/recruiter/editJobAd/{id}")

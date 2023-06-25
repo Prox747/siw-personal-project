@@ -59,7 +59,7 @@
     <!--  gli annunci pubblicati dall'azienda  -->
     <div id="job-applications">
         <div class="h1 text-gradient my-1">Annunci pubblicati</div>
-        <div class="h3" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
+        <div class="alert alert-warning" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
         <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
             <div th:each="jobAd : ${company.jobAds}">
                 <div th:replace="fragments/bootstrap_fragment :: jobAd"></div>

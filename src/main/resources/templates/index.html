@@ -49,7 +49,7 @@
                 alertBox('Nessun annuncio soddisfa il salario minimo', 'warning', 'false')">
         </div>
 
-        <div class="h2" th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
+        <div class="alert alert-warning" th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div id="mostPopularJobAds" th:unless="${mostPopularJobAds.isEmpty()}">
             <div th:each="jobAd : ${mostPopularJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd" th:data-salary="${jobAd.salary}"></div>
         </div>
@@ -64,7 +64,7 @@
                 alertBox('Nessun annuncio soddisfa il salario minimo', 'warning', 'false')">
         </div>
 
-        <div class="h2" th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
+        <div class="alert alert-warning" th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
         <div id="newestJobAds" th:unless="${newestJobAds.isEmpty()}">
             <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd" th:data-salary="${jobAd.salary}"></div>
         </div>

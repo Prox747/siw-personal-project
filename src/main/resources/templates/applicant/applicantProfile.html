@@ -92,7 +92,7 @@
         <div th:each="jobAppl : ${jobAppls}">
             <div th:replace="fragments/bootstrap_fragment :: jobAppl"></div>
         </div>
-        <div class="h3" th:if="${jobAppls.isEmpty()}">Non ti sei candidato per nessun annuncio</div>
+        <div class="alert alert-warning" th:if="${jobAppls.isEmpty()}">Non ti sei candidato per nessun annuncio</div>
     </div>
 
 </div>

@@ -14,7 +14,7 @@
             crossorigin="anonymous"></script>
     <style>
         .hover-darker:hover {
-            background-color: #ccc;
+            backdrop-filter: opacity(0.7);
             transition: all ease-in 200ms;
         }
 
@@ -133,10 +133,10 @@
     <p th:text="${jobAd.requirements}">Requisiti</p>
 
     <!--varie opzioni in base al tipo di utente e candidature-->
-    <a th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd) and currentUser.imageFileName != null}"
+    <a class="btn btn-primary" th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd) and currentUser.imageFileName != null}"
        th:href="@{'/applicate/' + ${jobAd.id}}">Candidati</a>
-    <p th:if="${userIsApplicant and currentUser.hasAppliedToJobAd(jobAd)}">Candidatura inviata</p>
-    <a th:if="${not userIsRegistered}" th:href="@{'/login'}">Accedi per candidarti</a>
+    <span class="fw-bold gradient-text" th:if="${userIsApplicant and currentUser.hasAppliedToJobAd(jobAd)}">Candidatura inviata</span>
+    <a class="btn btn-primary" th:if="${not userIsRegistered}" th:href="@{'/login'}">Accedi per candidarti</a>
 </th:block>
 
 
