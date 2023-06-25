@@ -7,7 +7,7 @@ let popularJobAdsElement = document.getElementById('mostPopularJobAds');
 let newestJobAdsElement = document.getElementById('newestJobAds');
 
 slider.addEventListener('input', function() {
-    salaryLabel.innerText = 'Cerca per salario minimo: ' + slider.value;
+    salaryLabel.innerText = 'Cerca per salario minimo: ' + slider.value + '€/mese';
 
     let minSalary = slider.value;
 

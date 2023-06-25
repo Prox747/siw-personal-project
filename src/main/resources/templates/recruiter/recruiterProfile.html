@@ -89,7 +89,7 @@
     </div>
 
     <!-- CANDIDATURE IN ATTESA -->
-    <div class="h1 text-gradient">Candidature in attesa</div>
+    <div class="h1 text-gradient d-inline-block">Candidature in attesa</div>
     <div class="d-flex overflow-scroll px-3 gap-4" th:unless="${pendingJobAppls.isEmpty()}">
         <div th:each="jobAppl : ${pendingJobAppls}" th:insert="fragments/bootstrap_fragment :: userAppl"
              style="min-width: 317px"></div>

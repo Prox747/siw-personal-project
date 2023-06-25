@@ -10,6 +10,7 @@
 
   <div class="container">
         <!-- ANNUNCIO -->
+      <div class="h1 text-gradient pb-1 my-2">Annuncio</div>
       <div id="jobAd">
           <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
           <a class="btn btn-warning text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
@@ -18,7 +19,7 @@
 
       <!-- CANDIDATURE VECCHIE E NUOVE -->
       <div class="my-4" id="job-applications">
-          <h1 class="h1 text-gradient" id="job-appl-title">Tutte le candidature</h1>
+          <h1 class="h1 text-gradient d-inline-block" id="job-appl-title">Tutte le candidature</h1>
           <div class="d-flex overflow-scroll px-3 gap-4" th:unless="${jobAppls.isEmpty()}">
               <div th:each="jobAppl : ${jobAppls}" th:insert="fragments/bootstrap_fragment :: userAppl"
                    style="min-width: 317px"></div>

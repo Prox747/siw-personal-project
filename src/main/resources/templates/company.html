@@ -11,7 +11,7 @@
 
 <div class="container">
     <!-- Logo e info azienda -->
-    <div class="d-flex flex-wrap align-items-center justify-content-center gap-sm-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-center gap-sm-4 mb-3">
         <!-- LOGO -->
         <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
                 flex-column align-items-center shadow h-fit-content">
@@ -58,9 +58,9 @@
 
     <!--  gli annunci pubblicati dall'azienda  -->
     <div id="job-applications">
-        <div class="h1 text-gradient my-1">Annunci pubblicati</div>
+        <div class="h1 text-gradient my-3">Annunci pubblicati</div>
         <div class="alert alert-warning" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
-        <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
+        <div class="d-flex flex-column gap-3 mb-3" id="job-appls" th:unless="${company.jobAds.isEmpty()}">
             <div th:each="jobAd : ${company.jobAds}">
                 <div th:replace="fragments/bootstrap_fragment :: jobAd"></div>
                 <a class="btn btn-primary" th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
