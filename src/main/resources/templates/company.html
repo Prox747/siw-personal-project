@@ -15,7 +15,7 @@
         <!-- LOGO -->
         <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
                 flex-column align-items-center shadow h-fit-content">
-            <div class="h1 text-gradient my-3" th:text="${company.companyName}">nome azienda</div>
+            <div class="h1 text-gradient my-3 pb-1" th:text="${company.companyName}">nome azienda</div>
             <img class="rounded-circle my-3" th:if="${company.logoFileName}"
                  th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
                  style="aspect-ratio:1; height:15rem" alt="company_logo">
