@@ -38,11 +38,19 @@
         </div>
     </div>
 
+
     <!-- ANNUNCI -->
     <div>
 
         <!-- ANNUNCI PIU' POPOLARI -->
-        <div class="h1 text-gradient d-inline-block">Annunci più popolari</div>
+        <div class="d-flex flex-wrap-reverse gap-3 align-items-center mb-3">
+            <div class="h1 text-gradient d-inline-block">Annunci più popolari</div>
+            <!-- bottone per mostrare/nascondere -->
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mostPopularJobAdsCollapse" aria-expanded="true" aria-controls="mostPopularJobAdsCollapse">
+                Mostra/Nascondi
+            </button>
+        </div>
 
         <!-- avviso quando non trovo nulla -->
         <div id="noPopularJobAdsFound" style="display: none" th:insert="fragments/bootstrap_fragment ::
@@ -50,14 +58,25 @@
         </div>
 
         <div class="alert alert-warning" th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
-        <div id="mostPopularJobAds" th:unless="${mostPopularJobAds.isEmpty()}">
-            <div th:each="jobAd : ${mostPopularJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd" th:data-salary="${jobAd.salary}"></div>
+        <!-- div che viene mostrato/nascosto  -->
+        <div class="collapse show" id="mostPopularJobAdsCollapse">
+            <div class="d-flex flex-column gap-3 mb-3" id="mostPopularJobAds"
+                 th:unless="${mostPopularJobAds.isEmpty()}">
+                <div th:each="jobAd : ${mostPopularJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"
+                     th:data-salary="${jobAd.salary}"></div>
+            </div>
         </div>
 
 
 
         <!-- ANNUNCI PIU' RECENTI -->
-        <div class="h1 text-gradient d-inline-block">Annunci più recenti</div>
+        <div class="d-flex flex-wrap-reverse gap-3 align-items-center mb-3 mt-5">
+            <div class="h1 text-gradient d-inline-block">Annunci più recenti</div>
+            <!-- bottone per mostrare/nascondere -->
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#newestJobAdsCollapse" aria-expanded="true" aria-controls="newestJobAdsCollapse">
+               Mostra/Nascondi
+            </button>
+        </div>
 
         <!-- avviso quando non trovo nulla -->
         <div id="noNewestJobAdsFound" style="display: none" th:insert="fragments/bootstrap_fragment ::
@@ -65,8 +84,14 @@
         </div>
 
         <div class="alert alert-warning" th:if="${newestJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
-        <div id="newestJobAds" th:unless="${newestJobAds.isEmpty()}">
-            <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd" th:data-salary="${jobAd.salary}"></div>
+
+        <!-- div che viene mostrato/nascosto  -->
+        <div class="collapse show" id="newestJobAdsCollapse">
+            <div class="d-flex flex-column gap-3" id="newestJobAds"
+                 th:unless="${newestJobAds.isEmpty()}">
+                <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"
+                     th:data-salary="${jobAd.salary}"></div>
+            </div>
         </div>
     </div>
 

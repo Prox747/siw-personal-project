@@ -12,7 +12,7 @@
 <div class="container">
 
     <!-- Azienda e info reclutatore -->
-    <div class="d-flex flex-wrap justify-content-center gap-sm-4">
+    <div class="d-flex flex-wrap justify-content-center gap-4 row-gap-0">
         <!-- AZIENDA -->
         <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
                 flex-column align-items-center justify-content-evenly shadow">
@@ -99,13 +99,13 @@
     <!-- ANNUNCI DELL'AZIENDA -->
     <div id="company-jobAds">
         <div class="d-flex flex-wrap mt-4">
-            <div class="h1 text-gradient me-3">I miei annunci</div>
+            <div class="h1 text-gradient me-3 mb-2">I miei annunci</div>
             <div class="my-auto">
                 <a class="btn btn-primary" th:href="@{'/recruiter/newJobAd'}">Pubblica annuncio</a>
             </div>
         </div>
         <div class="alert alert-warning" th:if="${company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
-        <div th:unless="${company.jobAds.isEmpty()}" id="jobAds-container">
+        <div class="d-flex flex-column gap-3 mb-3" th:unless="${company.jobAds.isEmpty()}" id="jobAds-container">
             <div th:each="jobAd : ${company.jobAds}">
                 <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
                 <a class="btn btn-primary" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>

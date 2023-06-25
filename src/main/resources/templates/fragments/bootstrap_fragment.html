@@ -123,18 +123,19 @@
     <div class="card border border-2 border-primary-subtle rounded shadow bg-light">
         <!-- informazioni annuncio -->
         <div class="card-body pb-0">
-            <div id="title+date" class="d-flex justify-content-between align-items-center flex-wrap">
+            <div id="title+date-1" class="d-flex justify-content-between align-items-center flex-wrap">
                 <h4 class="card-title" th:text="${jobAd.title}">Titolo</h4>
                 <h6 class="card-subtitle text-body-secondary"
                     th:text="'Pubblicato il: ' + ${#temporals.format(jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></h6>
             </div>
             <hr>
 
-            <div id="logo+name" class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <div id="logo+name-1" class="d-flex flex-wrap align-items-center gap-2 mb-2">
                 <img class="rounded-circle border border-2 border-primary-subtle" style="aspect-ratio: 1; height: 50px;"
-                    th:src="@{'/upload/images/companiesLogos/' + ${jobAd.company.logoFileName}}"
-                    alt="company_logo">
-                <a class="card-link fw-bold text-gradient" th:text="${jobAd.company.companyName}" th:href="@{'/companies/' + ${jobAd.company.id}}">Nome
+                     th:src="@{'/upload/images/companiesLogos/' + ${jobAd.company.logoFileName}}"
+                     alt="company_logo">
+                <a class="card-link fw-bold text-gradient" th:text="${jobAd.company.companyName}"
+                   th:href="@{'/companies/' + ${jobAd.company.id}}">Nome
                     azienda</a>
             </div>
 
@@ -145,7 +146,7 @@
             <p class="card-text text-break" th:text="${jobAd.requirements}">Requisiti</p>
             <hr>
 
-            <div class="d-flex justify-content-start gap-2 flex-wrap mb-2" id="other-info">
+            <div class="d-flex justify-content-start gap-2 flex-wrap mb-2" id="other-info-1">
                 <span class="card-text text-body-secondary" th:text="${jobAd.jobApplications.size()} + ' candidature'">num candidature</span>
                 <div class="vr"></div>
                 <span class="card-text text-body-secondary" th:text="${jobAd.salary} + '€ al mese'">paga</span>
@@ -157,9 +158,10 @@
         <!--varie opzioni in base al tipo di utente e se è candidato -->
         <div class="p-3">
             <a class="btn btn-primary"
-              th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd) and currentUser.imageFileName != null}"
-              th:href="@{'/applicate/' + ${jobAd.id}}">Candidati</a>
-            <strong class="text-gradient" th:if="${userIsApplicant and currentUser.hasAppliedToJobAd(jobAd)}">Candidatura inviata</strong>
+               th:if="${userIsApplicant and !currentUser.hasAppliedToJobAd(jobAd) and currentUser.imageFileName != null}"
+               th:href="@{'/applicate/' + ${jobAd.id}}">Candidati</a>
+            <strong class="text-gradient" th:if="${userIsApplicant and currentUser.hasAppliedToJobAd(jobAd)}">Candidatura
+                inviata</strong>
             <a class="btn btn-primary" th:if="${not userIsRegistered}" th:href="@{'/login'}">Accedi per candidarti</a>
         </div>
 
@@ -169,34 +171,59 @@
 
 <!-- ANNUNCIO CON STATO CANDIDATURA -->
 <th:block th:fragment="jobAppl">
-    <div id="jobad-info">
-        <h2 th:text="${jobAppl.jobAd.title}">Titolo</h2>
-        <img class="rounded-circle" style="aspect-ratio: 1; height: 50px;"
-             th:src="@{'/upload/images/companiesLogos/' + ${jobAppl.jobAd.company.logoFileName}}"
-             alt="company_logo">
-        <p th:text="${jobAppl.jobAd.company.companyName}">nome azienda</p>
-        <p th:text="${jobAppl.jobAd.salary} + '€'">paga</p>
-        <p th:text="${#temporals.format(jobAppl.jobAd.publicationDate,'dd-MM-yyyy HH:mm')}"></p>
-        <p th:text="${jobAppl.jobAd.description}">Descrizione</p>
-        <p th:text="${jobAppl.jobAd.field}">Settore</p>
-        <p th:text="${jobAppl.jobAd.requirements}">Requisiti</p>
-    </div>
-    <div id="jobappl-status">
-        <div class="bg-primary-subtle p-3 d-flex align-items-center justify-content-between flex-wrap"
-             th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
-            <span class="fw-bold text-primary">In attesa</span>
-            <div th:if="${userIsApplicant}">
-                <a class="btn btn-danger" th:href="@{'/applicant/unrollFromAppl/' + ${jobAppl.id}}">Annulla candidatura</a>
+    <div class="card border border-2 border-primary-subtle rounded shadow bg-light">
+        <!-- informazioni annuncio -->
+        <div class="card-body pb-0">
+            <div id="title+date-2" class="d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="card-title" th:text="${jobAppl.jobAd.title}">Titolo</h4>
+                <h6 class="card-subtitle text-body-secondary"
+                    th:text="'Candidato il: ' + ${#temporals.format(jobAppl.applicationDate,'dd-MM-yyyy HH:mm')}"></h6>
+            </div>
+            <hr>
+
+            <div id="logo+name-2" class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                <img class="rounded-circle border border-2 border-primary-subtle" style="aspect-ratio: 1; height: 50px;"
+                     th:src="@{'/upload/images/companiesLogos/' + ${jobAppl.jobAd.company.logoFileName}}"
+                     alt="company_logo">
+                <a class="card-link fw-bold text-gradient" th:text="${jobAppl.jobAd.company.companyName}"
+                   th:href="@{'/companies/' + ${jobAppl.jobAd.company.id}}">Nome azienda</a>
+            </div>
+
+            <div class="fw-bold card-text">Descrizione</div>
+            <p class="card-text text-break" th:text="${jobAppl.jobAd.description}">Descrizione</p>
+
+            <div class="fw-bold card-text">Requisiti</div>
+            <p class="card-text text-break" th:text="${jobAppl.jobAd.requirements}">Requisiti</p>
+            <hr>
+
+            <div class="d-flex justify-content-start gap-2 flex-wrap mb-2" id="other-info-2">
+                <span class="card-text text-body-secondary" th:text="${jobAppl.jobAd.jobApplications.size()} + ' candidature'">num candidature</span>
+                <div class="vr"></div>
+                <span class="card-text text-body-secondary" th:text="${jobAppl.jobAd.salary} + '€ al mese'">paga</span>
+                <div class="vr"></div>
+                <span class="card-text text-body-secondary" th:text="${jobAppl.jobAd.field}">Settore</span>
             </div>
         </div>
-        <div class="bg-success-subtle p-3"
-             th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_ACCEPTED)}">
-            <span class="fw-bold text-success">Accettata</span>
+
+        <div id="jobappl-status">
+            <div class="bg-primary-subtle p-3 d-flex align-items-center justify-content-between flex-wrap"
+                 th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_PENDING)}">
+                <span class="fw-bold text-primary">In attesa</span>
+                <div th:if="${userIsApplicant}">
+                    <a class="btn btn-danger" th:href="@{'/applicant/unrollFromAppl/' + ${jobAppl.id}}">Annulla
+                        candidatura</a>
+                </div>
+            </div>
+            <div class="bg-success-subtle p-3"
+                 th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_ACCEPTED)}">
+                <span class="fw-bold text-success">Accettata</span>
+            </div>
+            <div class="bg-danger-subtle p-3"
+                 th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_REJECTED)}">
+                <span class="fw-bold text-danger">Rifiutata</span>
+            </div>
         </div>
-        <div class="bg-danger-subtle p-3"
-             th:if="${jobAppl.status.equals(T(it.uniroma3.siw.model.JobApplication).STATUS_REJECTED)}">
-            <span class="fw-bold text-danger">Rifiutata</span>
-        </div>
+
     </div>
 </th:block>
 
@@ -233,7 +260,7 @@
                 <span class="fw-bold text-primary mb-2 mb-sm-0">In attesa</span>
                 <div id="button-wrapper">
                     <a class="btn btn-success me-2"
-                      th:href="@{'/recruiter/jobAds/' + ${jobAppl.jobAd.id} + '/applications/' + ${jobAppl.id} + '/accept'}">Accetta</a>
+                       th:href="@{'/recruiter/jobAds/' + ${jobAppl.jobAd.id} + '/applications/' + ${jobAppl.id} + '/accept'}">Accetta</a>
                     <a class="btn btn-danger"
                        th:href="@{'/recruiter/jobAds/' + ${jobAppl.jobAd.id} + '/applications/' + ${jobAppl.id} + '/reject'}">Rifiuta</a>
                 </div>

@@ -10,8 +10,8 @@
 
   <div class="container">
         <!-- ANNUNCIO -->
-      <div class="h1 text-gradient pb-1 my-2">Annuncio</div>
-      <div id="jobAd">
+      <div class="h1 text-gradient d-inline-block pb-1 my-2">Annuncio</div>
+      <div class="mb-2" id="jobAd">
           <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
           <a class="btn btn-warning text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
           <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
