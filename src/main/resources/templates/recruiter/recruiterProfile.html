@@ -11,15 +11,17 @@
 
 <div class="container">
 
-    <div class="d-flex flex-wrap justify-content-center">
-        <div class="my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
-                flex-column align-items-center w-fit-content shadow">
+    <!-- Azienda e info reclutatore -->
+    <div class="d-flex flex-wrap justify-content-center gap-sm-4">
+        <!-- AZIENDA -->
+        <div class="w-400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center justify-content-evenly shadow">
             <div class="h2 text-gradient my-1">Lavora per:</div>
             <div class="h1 text-gradient my-2" th:text="${company.companyName}">nome azienda</div>
             <img class="rounded-circle" th:if="${company.logoFileName}"
                  th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
                  style="aspect-ratio:1; height:15rem" alt="company_logo">
-            <form class="d-none" action="/recruiter/addedPic" method="post"
+            <form class="d-none" th:action="@{/recruiter/modifyLogo}" method="post"
                   enctype="multipart/form-data">
                 <label class="form-label" id="modifyProfilePicLabel" for="uploadImage">Modifica logo</label>
                 <input class="form-control" id="uploadImage" name="image" type="file" accept="image/*"
@@ -34,42 +36,81 @@
             </script>
         </div>
 
-        <div class="my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
-                flex-column align-items-center w-fit-content shadow">
-            <div class="h1 text-gradient my-3">Le tue info:</div>
-            <strong class="h3">Nome</strong>
-            <div class="h3 mb-3" th:text="${recruiter.name}">nome recruiter</div>
-            <strong class="h3">Cognome</strong>
-            <div class="h3 mb-3" th:text="${recruiter.surname}">cognome recruiter</div>
-            <strong class="h3">Email</strong>
-            <div class="h3 mb-3" th:text="${recruiter.email}">email recruiter</div>
-            <strong class="h3">Candidature accettate</strong>
-            <div class="h3 mb-3" th:text="${recruiter.acceptedApplications}">Candidature accettate</div>
-            <strong class="h3">Candidature rifiutate</strong>
-            <div class="h3 mb-3" th:text="${recruiter.rejectedApplications}">Candidature rifiutate</div>
+        <!-- INFO RECLUTATORE -->
+        <div class="w-400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center shadow">
+            <div class="h1 text-gradient my-3 align-self-start">Le tue info</div>
+            <div class="w-400px px-3 card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Nome</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${recruiter.name}">nome recl</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Cognome</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${recruiter.surname}">cognome recl</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${recruiter.email}">email</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Candidature accettate</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${recruiter.acceptedApplications}">8 (finto)</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Candidature rifiutate</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${recruiter.rejectedApplications}">5 (prova)</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- CANDIDATURE IN ATTESA -->
-    <h2>Candidature in attesa</h2>
+    <div class="h1 text-gradient">Candidature in attesa</div>
     <div class="d-flex overflow-auto px-3" th:unless="${pendingJobAppls.isEmpty()}">
         <div th:each="jobAppl : ${pendingJobAppls}" th:insert="fragments/bootstrap_fragment :: userAppl"></div>
     </div>
-    <div th:if="${pendingJobAppls.isEmpty()}">Non c'è nessuna candidatura in attesa</div>
+    <div class="h3" th:if="${pendingJobAppls.isEmpty()}">Non c'è nessuna candidatura in attesa</div>
 
     <!-- ANNUNCI DELL'AZIENDA -->
     <div id="company-jobAds">
-        <div class="d-flex flex-wrap">
-            <div class="h1 text-gradient">I miei annunci</div>
-            <a class="btn btn-primary" th:href="@{'/recruiter/newJobAd'}">Pubblica annuncio</a>
+        <div class="d-flex flex-wrap mt-4">
+            <div class="h1 text-gradient me-3">I miei annunci</div>
+            <div class="my-auto">
+                <a class="btn btn-primary" th:href="@{'/recruiter/newJobAd'}">Pubblica annuncio</a>
+            </div>
         </div>
-        <div th:if="${company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
+        <div class="h3" th:if="${company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
         <div th:unless="${company.jobAds.isEmpty()}" id="jobAds-container">
             <div th:each="jobAd : ${company.jobAds}">
                 <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
-                <a th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
-                <a th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
-                <a th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+                <a class="btn btn-primary" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
+                <a class="btn bg-orange text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
+                <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
             </div>
         </div>
     </div>

@@ -9,27 +9,61 @@
 
 <div th:replace="fragments/header :: header"></div>
 
-<div class="company-card">
-    <div class="company-logo">
-        <img th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
-             alt="company_logo">
-    </div>
-    <div class="nome azienda" th:text="${company.companyName}">nome azienda</div>
-    <div class="company-desc" th:text="${company.description}">descrizione</div>
+<div class="container">
+    <!-- Logo e info azienda -->
+    <div class="d-flex flex-wrap align-items-center justify-content-center gap-sm-4">
+        <!-- LOGO -->
+        <div class="w-400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center shadow h-fit-content">
+            <div class="h1 text-gradient my-3" th:text="${company.companyName}">nome azienda</div>
+            <img class="rounded-circle my-3" th:if="${company.logoFileName}"
+                 th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
+                 style="aspect-ratio:1; height:15rem" alt="company_logo">
+        </div>
 
-    <div id="contacts">
-        <span>Sede: </span><span th:text="${company.location}">sede</span>
-        <span>Telefono: </span><span th:text="${company.phoneNumber}">telefono</span>
+        <!-- INFO AZIENDA -->
+        <div class="w-400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center shadow">
+            <div class="h1 text-gradient my-3 align-self-start">Info Azienda</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Descrizione</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${company.description}">desc azienda</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Sede</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${company.location}">Sede azienda</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Telefono</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${company.phoneNumber}">392809427</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--  gli annunci pubblicati dall'azienda  -->
     <div id="job-applications">
-        <h1 id="job-appl-title">Annunci pubblicati</h1>
-        <div id="emptyList" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
+        <div class="h1 text-gradient my-1">Annunci pubblicati</div>
+        <div class="h3" th:if="${company.jobAds.isEmpty()}">Non ha ancora pubblicato nessun annuncio</div>
         <div id="job-appls" th:unless="${company.jobAds.isEmpty()}">
             <div th:each="jobAd : ${company.jobAds}">
                 <div th:replace="fragments/bootstrap_fragment :: jobAd"></div>
-                <a th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
+                <a class="btn btn-primary" th:if="${userIsRecruiter}" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
             </div>
         </div>
     </div>

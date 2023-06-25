@@ -11,7 +11,6 @@
 
 <div class="profile-card">
     <div class="profile-pic">
-        <h1>Profilo</h1>
 
         <!-- solo se  siamo noi possiamo modificare l'immagine -->
         <form th:if="${currentUser.id == user.id}" class="modifyProfilePic" th:action="@{/applicant/addedPic}" method="post" enctype="multipart/form-data">
