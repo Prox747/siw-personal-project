@@ -44,9 +44,9 @@
 
         <!-- ANNUNCI PIU' POPOLARI -->
         <div class="d-flex flex-wrap-reverse gap-3 align-items-center mb-3">
-            <div class="h1 text-gradient d-inline-block">Annunci più popolari</div>
+            <div class="h1 text-gradient d-inline-block mt-3">Annunci più popolari</div>
             <!-- bottone per mostrare/nascondere -->
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+            <button th:unless="${mostPopularJobAds.isEmpty()}" class="btn btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#mostPopularJobAdsCollapse" aria-expanded="true" aria-controls="mostPopularJobAdsCollapse">
                 Mostra/Nascondi
             </button>
@@ -73,7 +73,7 @@
         <div class="d-flex flex-wrap-reverse gap-3 align-items-center mb-3 mt-5">
             <div class="h1 text-gradient d-inline-block">Annunci più recenti</div>
             <!-- bottone per mostrare/nascondere -->
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#newestJobAdsCollapse" aria-expanded="true" aria-controls="newestJobAdsCollapse">
+            <button th:unless="${newestJobAds.isEmpty()}" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#newestJobAdsCollapse" aria-expanded="true" aria-controls="newestJobAdsCollapse">
                Mostra/Nascondi
             </button>
         </div>
