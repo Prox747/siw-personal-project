@@ -1,56 +1,42 @@
-# siw-personal-project
+# siw-personl-project - Progetto per corso di SIW RomaTre Ingegneria Informatica 3o anno
 
-Progetto: Sito di Gestione Annunci di Lavoro (per ora bozza, ps. mi scorderò di aggiornare il readme e ci sarà scritto ancora che è una bozza :)  )
+**CASI D'USO:**
+   
+     Utente occassionale: 
+          1. Qualsiasi utente può visualizzare le informazioni relative agli annunci
+               1.1 Può visualizzare di un annuncio, quante persone sono candidate, e tutte le altre informazioni
+          2. L'utente può usufruire della visualizzazione di annunci divisi per categoria "piu popolari" o "piu recenti",
+             decidendo se mostrare o meno tali categorie
+          3. Qualsiasi utente può effettuare la ricerca di annunci per salario minimo attraverso uno slider
+          4. Qualsiasi utente può visualizzare la pagina di un'azienda, con i suoi annunci e le sue informazioni
+          5. (Lo metto anche se scontato) Qualsiasi utente si può registrare e accedere al servizio con l'account registrato
+     ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+     Utente registrato per candidarsi agli annunci:
+          1. Un utente registrato può accedere alla propria pagina del profilo
+          2. Un utente registrato può aggiungere o cambiare la propria immagine del profilo, deve se vuole candidarsi
+          3. Un utente registrato può candidarsi a uno o più annunci, potrà visualizzare le candidature nella pagina del profilo
+          4. Un utente registrato può visualizzare lo stato delle sue candidature (in attesa / accettata / rifiutata) nella pagina del profilo
+          5. Un utente registrato può annullare la sua candidatura a un annuncio 
+     ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+     Utente reclutatore per azienda:
+          1. Un utente reclutatore può aggiungere un annuncio, con le informazioni necessarie
+          2. Un utente reclutatore può rimuovere un annuncio e conseguentemente tutte le sue candidature
+          3. Un utente reclutatore può accettare o rifiutare le candidature per un annuncio
+          4. Un utente reclutatore può visualizzare le candidature in attesa per i suoi annunci nella pagina del profilo
+          5. Un utente reclutatore può visualizzare TUTTE (storico) le candidature per un suo annuncio nella pagina dell'annuncio
+          6. Un utente reclutatore può aggiornare le informazioni sugli annunci, cambiando qualunque informazione
+     ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Casi d'uso:
+      IL SITO E' INOLTRE RESPONSIVO IN BASE ALLA GRANDEZZA DELLO SCHERMO
+          
 
-1. Inserimento di un annuncio da parte di un'azienda:
-   - L'azienda accede all'area riservata e seleziona la funzione di inserimento di un nuovo annuncio.
-   - L'azienda completa un modulo contenente le informazioni sull'annuncio, come titolo, descrizione, settore, requisiti richiesti e altri dettagli pertinenti.
-   - Il sistema valida e registra l'annuncio nel database.
+**NOTE FINALI E CONSIDERAZIONI:**
 
-2. Aggiornamento di un annuncio da parte di un'azienda:
-   - L'azienda accede all'area riservata e seleziona l'annuncio che desidera aggiornare.
-   - L'azienda modifica le informazioni necessarie dell'annuncio, ad esempio il titolo, la descrizione o i requisiti richiesti.
-   - Il sistema valida e aggiorna le informazioni dell'annuncio nel database.
-
-3. Lettura degli annunci disponibili per le persone in cerca di lavoro:
-   - Le persone in cerca di lavoro accedono al sito e selezionano la sezione degli annunci di lavoro.
-   - Il sistema mostra un elenco di annunci disponibili, con i dettagli di base come il titolo e il settore.
-   - Le persone in cerca di lavoro possono cliccare su un annuncio per visualizzare ulteriori dettagli come la descrizione e i requisiti richiesti.
-
-4. Ricerca degli annunci per settore o parola chiave:
-   - Le persone in cerca di lavoro utilizzano la funzione di ricerca per trovare annunci specifici.
-   - Il sistema consente loro di inserire una parola chiave o selezionare un settore specifico.
-   - Il sistema mostra gli annunci corrispondenti alle preferenze di ricerca specificate.
-
-Modello di dominio:
-
-1. Entità:
-   - Annuncio: rappresenta un annuncio pubblicato da un'azienda e contiene informazioni come titolo, descrizione, settore, requisiti richiesti e altro.
-   - Azienda: rappresenta un'azienda che pubblica annunci di lavoro e contiene informazioni come nome, descrizione e altre informazioni di contatto.
-   - Utente: rappresenta una persona registrata nel sistema, che può essere sia un'azienda che una persona in cerca di lavoro. Contiene informazioni come nome, email e password.
-   - Partecipazione: rappresenta la partecipazione di una persona in cerca di lavoro a un annuncio di lavoro. Contiene informazioni come
-     la data di partecipazione e lo stato della partecipazione (accettato, in attesa, rifiutato).
-
-2. Relazioni:
-   - Un'azienda può pubblicare molti annunci di lavoro.
-   - Un annuncio è associato a un'unica azienda.
-   - Una persona in cerca di lavoro può visualizzare molti annunci e aderire a quelli che sono interessanti.
-
-Strato di persistenza:
-
-1. Tabella "Annunci":
-   - Colonne: ID annuncio, ID azienda, titolo, descrizione, settore, requisiti richiesti, data di pubblicazione, ecc.
-
-2. Tabella "Aziende":
-   - Colonne: ID azienda, nome, descrizione, indirizzo, contatti, ecc.
-
-3. Tabella "Utenti":
-  - Colonne: ID utente, nome, email, password, ruolo (azienda o persona in cerca di lavoro), ecc.
-
-4. Tabella "Partecipazioni":
-   - Colonne: ID partecipazione, ID annuncio, ID utente, data di partecipazione, stato (accettato, in attesa, rifiutato), ecc.
-
-VECCHIO: devo aggiungere reclutatore attaccato ad azienda e user che è la generalizzazione
-<img src="./domainModelImage/modello_dominio.jpeg" alt="Project Domain Model" width="500">
+     In aggiunta alle note finali della repository https://github.com/Prox747/siw-movie, posso dire che l'uso di Bootstrap è stato molto d'aiuto a parer mio.
+     Tuttavia, se prima non avessi imparato il CSS di base con l'altro progetto (fatto tutto a manovella), non  sarei stato capace di usare Bootstrap in un 
+     modo così efficiente. In ogni caso, il sito è venuto molto meglio di quanto mi aspettassi, quindi sono soddisfatto :) .
+     
+     
+Ribadisco anche qui che il corso mi è piaciuto tanto, sopratutto il focus sulla pratica senza però diventare delle scimmiette che scrivono codice a caso 🐵
+     
+               
