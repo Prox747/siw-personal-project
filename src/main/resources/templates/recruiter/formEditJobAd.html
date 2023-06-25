@@ -21,10 +21,6 @@
                     </div>
                 </div>
 
-                <div class="mb-3" th:if="${erroreDescrizione}">
-                    <div th:insert="fragments/bootstrap_fragment :: alertBox(${erroreDescrizione}, 'warning', 'false')"></div>
-                </div>
-
                 <!-- perchè senno non abbiamo l'id al ritorno -->
                 <input class="d-none" th:field="${jobAd.id}"/>
 

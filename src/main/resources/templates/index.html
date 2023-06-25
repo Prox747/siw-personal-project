@@ -43,8 +43,8 @@
     <div>
 
         <!-- ANNUNCI PIU' POPOLARI -->
-        <div class="d-flex flex-wrap-reverse gap-3 align-items-center mb-3">
-            <div class="h1 text-gradient d-inline-block mt-3">Annunci più popolari</div>
+        <div class="d-flex flex-wrap-reverse gap-3 align-items-center my-3">
+            <div class="h1 text-gradient d-inline-block">Annunci più popolari</div>
             <!-- bottone per mostrare/nascondere -->
             <button th:unless="${mostPopularJobAds.isEmpty()}" class="btn btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#mostPopularJobAdsCollapse" aria-expanded="true" aria-controls="mostPopularJobAdsCollapse">
@@ -57,7 +57,7 @@
                 alertBox('Nessun annuncio soddisfa il salario minimo', 'warning', 'false')">
         </div>
 
-        <div class="alert alert-warning" th:if="${mostPopularJobAds.isEmpty()}">Non è stato ancora pubblicato nessun annuncio</div>
+        <div class="alert alert-warning" th:if="${mostPopularJobAds.isEmpty()}">Non ci sono annunci popolari al momento</div>
         <!-- div che viene mostrato/nascosto  -->
         <div class="collapse show" id="mostPopularJobAdsCollapse">
             <div class="d-flex flex-column gap-3 mb-3" id="mostPopularJobAds"
@@ -87,7 +87,7 @@
 
         <!-- div che viene mostrato/nascosto  -->
         <div class="collapse show" id="newestJobAdsCollapse">
-            <div class="d-flex flex-column gap-3" id="newestJobAds"
+            <div class="d-flex flex-column gap-3 mb-3" id="newestJobAds"
                  th:unless="${newestJobAds.isEmpty()}">
                 <div th:each="jobAd : ${newestJobAds}" th:insert="fragments/bootstrap_fragment :: jobAd"
                      th:data-salary="${jobAd.salary}"></div>

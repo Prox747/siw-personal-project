@@ -13,8 +13,10 @@
       <div class="h1 text-gradient d-inline-block pb-1 my-2">Annuncio</div>
       <div class="mb-2" id="jobAd">
           <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
-          <a class="btn btn-warning text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
-          <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+          <div class="d-flex gap-3 mt-3 mb-4">
+              <a class="btn btn-warning text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
+              <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+          </div>
       </div>
 
       <!-- CANDIDATURE VECCHIE E NUOVE -->

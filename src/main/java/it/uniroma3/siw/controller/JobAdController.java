@@ -81,7 +81,7 @@ public class JobAdController {
 
     @PostMapping("/recruiter/editedJobAd")
     public String editJobAd(@Valid @ModelAttribute("jobAd") JobAd editedJobAd, BindingResult bindingResult, Model model) {
-        if (!bindingResult.hasErrors() && !jobAdService.existsJobAdByDescription(editedJobAd.getDescription())) {
+        if (!bindingResult.hasErrors()) {
             JobAd oldJobAd = jobAdService.getJobAd(editedJobAd.getId());
             jobAdService.updateJobAd(oldJobAd, editedJobAd);
 
@@ -89,8 +89,6 @@ public class JobAdController {
             companyService.saveCompany(oldJobAd.getCompany());
             return "redirect:/profile";
         } else {
-            if (jobAdService.existsJobAdByDescription(editedJobAd.getDescription()))
-                model.addAttribute("erroreDescrizione", "Esiste già un annuncio con questa descrizione");
             return "recruiter/formEditJobAd";
         }
     }

@@ -18,10 +18,10 @@
         <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
                 flex-column align-items-center justify-content-evenly shadow">
             <div class="h1 text-gradient my-2 pb-1 text-break text-center" th:text="${user.username}">nome candidato</div>
-            <img class="rounded-circle" th:unless="${user.imageFileName}"
+            <img class="rounded-circle object-fit-cover" th:unless="${user.imageFileName}"
                  src="/upload/images/userProfilePics/default_pic.jpg"
                  style="aspect-ratio:1; height:15rem" alt="profile_pic">
-            <img class="rounded-circle" th:if="${user.imageFileName}"
+            <img class="rounded-circle object-fit-cover" th:if="${user.imageFileName}"
                  th:src="@{'/upload/images/userProfilePics/' + ${user.imageFileName}}"
                  style="aspect-ratio:1; height:15rem" alt="profile_pic">
 
@@ -87,7 +87,7 @@
     </div>
 
     <!-- CANDIDATURE -->
-    <div id="job-applications" class="d-flex flex-column gap-3">
+    <div id="job-applications" class="d-flex flex-column gap-3 mb-3">
         <div class="h1 text-gradient my-2">Candidature</div>
         <div th:each="jobAppl : ${jobAppls}">
             <div th:replace="fragments/bootstrap_fragment :: jobAppl"></div>

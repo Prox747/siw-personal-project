@@ -18,7 +18,7 @@
                 flex-column align-items-center justify-content-evenly shadow">
             <div class="h2 text-gradient my-1">Lavora per:</div>
             <div class="h1 text-gradient my-2 pb-1" th:text="${company.companyName}">nome azienda</div>
-            <img class="rounded-circle" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
+            <img class="rounded-circle object-fit-cover" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
                  style="aspect-ratio:1; height:15rem" alt="company_logo">
             <form class="d-none" th:action="@{/recruiter/modifyLogo}" method="post"
                   enctype="multipart/form-data">
@@ -107,10 +107,15 @@
         <div class="alert alert-warning" th:if="${company.jobAds.isEmpty()}">Non hai ancora pubblicato nessun annuncio</div>
         <div class="d-flex flex-column gap-3 mb-3" th:unless="${company.jobAds.isEmpty()}" id="jobAds-container">
             <div th:each="jobAd : ${company.jobAds}">
+                <!-- annuncio -->
                 <div th:insert="fragments/bootstrap_fragment :: jobAd"></div>
-                <a class="btn btn-primary" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
-                <a class="btn btn-warning text-light" th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
-                <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+                <!-- opzioni per l'annuncio -->
+                <div class="d-flex gap-3 mt-3 mb-4">
+                    <a class="btn btn-primary" th:href="@{'/recruiter/jobAds/' + ${jobAd.id}}">Verifica candidature</a>
+                    <a class="btn btn-warning text-light"
+                       th:href="@{'/recruiter/editJobAd/' + ${jobAd.id}}">Modifica</a>
+                    <a class="btn btn-danger" th:href="@{'/recruiter/deleteJobAd/' + ${jobAd.id}}">Elimina</a>
+                </div>
             </div>
         </div>
     </div>
