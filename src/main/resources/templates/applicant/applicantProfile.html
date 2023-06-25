@@ -9,35 +9,90 @@
 
 <div th:replace="fragments/header :: header"></div>
 
-<div class="profile-card">
-    <div class="profile-pic">
+<div class="container">
 
-        <!-- solo se  siamo noi possiamo modificare l'immagine -->
-        <form th:if="${currentUser.id == user.id}" class="modifyProfilePic" th:action="@{/applicant/addedPic}" method="post" enctype="multipart/form-data">
-            <label id="modifyProfilePicLabel" for="uploadImage">Modifica</label>
-            <input id="uploadImage" name="image" type="file" accept="image/*" onchange="form.submit()">
-        </form>
+    <!-- APPLICANT IMAGE & INFO -->
+    <div class="d-flex flex-wrap justify-content-center gap-sm-4">
 
-        <img th:unless="${user.imageFileName}" src="/upload/images/userProfilePics/default_pic.jpg" alt="profile pic">
-        <img th:if="${user.imageFileName}" th:src="@{'/upload/images/userProfilePics/' + ${user.imageFileName}}"
-             alt="profile_pic">
-    </div>
+        <!-- PROFILE PIC -->
+        <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-center justify-content-evenly shadow">
+            <div class="h1 text-gradient my-2 text-break text-center" th:text="${user.username}">nome candidato</div>
+            <img class="rounded-circle" th:unless="${user.imageFileName}"
+                 src="/upload/images/userProfilePics/default_pic.jpg"
+                 style="aspect-ratio:1; height:15rem" alt="profile_pic">
+            <img class="rounded-circle" th:if="${user.imageFileName}"
+                 th:src="@{'/upload/images/userProfilePics/' + ${user.imageFileName}}"
+                 style="aspect-ratio:1; height:15rem" alt="profile_pic">
 
-    <!-- INFO -->
-    <div class="username" th:text="${user.username}">username</div>
-    <div class="user-info">
-        <span>Nome: </span><span th:text="${user.name}">nome</span>
-        <span>Cognome: </span><span th:text="${user.surname}">cognome</span>
-        <span>Email: </span><span th:text="${user.email}">email</span>
+            <!-- solo se l'utente è il proprietario del profilo può modificare l'immagine -->
+            <form th:if="${currentUser.id == user.id}" class="d-none" th:action="@{/applicant/addedPic}"
+                  method="post" enctype="multipart/form-data">
+                <label class="form-label" id="modifyProfilePicLabel" for="uploadImage">Modifica logo</label>
+                <input class="form-control" id="uploadImage" name="image" type="file" accept="image/*"
+                       onchange="form.submit()">
+            </form>
+            <button type="button" id="uploadButton" class="btn btn-primary my-3">Cambia avatar</button>
+
+            <!-- per fare in modo che quando clicko il bottone per caricare l'immagine si apra la finestra di dialogo -->
+            <script>
+                document.getElementById("uploadButton").onclick = function () {
+                    document.getElementById("uploadImage").click();
+                };
+            </script>
+        </div>
+
+        <!-- INFO CANDIDATO -->
+        <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-start shadow">
+            <div class="h1 text-gradient my-3">Le tue info</div>
+            <div class="w-max400px card-body align-self-center">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Nome</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${user.name}">nome cand</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Cognome</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${user.surname}">cognome cand</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${user.email}">email</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">Candidato a</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted mb-0" th:text="${user.jobApplications.size()} + ' ' + 'annunci'">4 annunci</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- CANDIDATURE -->
     <div id="job-applications">
-        <h1 id="job-appl-title">Candidature</h1>
+        <div class="h1 text-gradient my-2">Candidature</div>
         <div th:each="jobAppl : ${jobAppls}">
             <div th:replace="fragments/bootstrap_fragment :: jobAppl"></div>
         </div>
-        <div th:if="${jobAppls.isEmpty()}">Non ti sei candidato per nessun annuncio</div>
+        <div class="h3" th:if="${jobAppls.isEmpty()}">Non ti sei candidato per nessun annuncio</div>
     </div>
 
 </div>

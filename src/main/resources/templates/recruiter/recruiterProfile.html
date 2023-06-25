@@ -14,12 +14,11 @@
     <!-- Azienda e info reclutatore -->
     <div class="d-flex flex-wrap justify-content-center gap-sm-4">
         <!-- AZIENDA -->
-        <div class="w-400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+        <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
                 flex-column align-items-center justify-content-evenly shadow">
             <div class="h2 text-gradient my-1">Lavora per:</div>
             <div class="h1 text-gradient my-2" th:text="${company.companyName}">nome azienda</div>
-            <img class="rounded-circle" th:if="${company.logoFileName}"
-                 th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
+            <img class="rounded-circle" th:src="@{'/upload/images/companiesLogos/' + ${company.logoFileName}}"
                  style="aspect-ratio:1; height:15rem" alt="company_logo">
             <form class="d-none" th:action="@{/recruiter/modifyLogo}" method="post"
                   enctype="multipart/form-data">
@@ -37,10 +36,10 @@
         </div>
 
         <!-- INFO RECLUTATORE -->
-        <div class="w-400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
-                flex-column align-items-center shadow">
-            <div class="h1 text-gradient my-3 align-self-start">Le tue info</div>
-            <div class="w-400px px-3 card-body">
+        <div class="w-max400px my-4 p-3 border border-3 border-primary-subtle rounded-4 d-flex
+                flex-column align-items-start shadow">
+            <div class="h1 text-gradient my-3">Le tue info</div>
+            <div class="w-max400px card-body align-self-center">
                 <div class="row">
                     <div class="col-12">
                         <p class="mb-0">Nome</p>
