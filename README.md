@@ -32,7 +32,7 @@
 
 **NOTE FINALI E CONSIDERAZIONI:**
 
-     In aggiunta alle note finali della repository https://github.com/Prox747/siw-movie, posso dire che l'uso di Bootstrap è stato molto d'aiuto a parer mio.
+     In aggiunta alle note finali della repository [siw-movie](https://github.com/Prox747/siw-movie), posso dire che l'uso di Bootstrap è stato molto d'aiuto a parer mio.
      Tuttavia, se prima non avessi imparato il CSS di base con l'altro progetto (fatto tutto a manovella), non  sarei stato capace di usare Bootstrap in un 
      modo così efficiente. In ogni caso, il sito è venuto molto meglio di quanto mi aspettassi, quindi sono soddisfatto :) .
      
