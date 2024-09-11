@@ -1,5 +1,5 @@
 # 🛠️ **SIW Personal Project**
-### Progetto per il corso di SIW RomaTre Ingegneria Informatica - 3° anno
+### Progetto per il corso di Sistemi Informativi su Web RomaTre Ingegneria Informatica - 3° anno
 
 ## 📋 **Casi d'Uso**
 
